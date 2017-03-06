@@ -1,0 +1,89 @@
+{"motos":[
+{
+"id":1,
+"name":"CB 125",
+"desc":"Moto económica, consumo de 40Km por galón. Capaz de soportarun peso máximo de 150Kg. Maxima velocidad de 90Km/h.",
+"img":[
+{
+"url":"img/hondacb125_1.png"
+},
+{
+"url":"img/hondacb125_2.jpg"
+},
+{
+"url":"img/hondacb125_3.png"
+}
+],
+"motor":{
+"type":4,
+"march":4,
+"trans":"Manual",
+"arr":"Manual"
+},
+"fabric":{
+"name":"Honda",
+"country":"Japón"
+},
+"cil":125,
+"size":"1804 x 251 x 1020",
+"weigth":180
+},
+{
+"id":1,
+"name":"VRF8000",
+"desc":"Momentos como la vista que se abre conforme sales de una curva en una carretera revirada que parece que nunca llega a su fin. Con el chasis de bajo peso de la nueva VFR800F, un mayor par motor en regímenes medios y bajos, el refinamiento del tetracilíndrico V4 y un diseño estilizado y aerodinámico al máximo, estos momentos están más a tu alcance que nunca.",
+"img":[
+{
+"url":"img/hondavrf_1.png"
+},
+{
+"url":"img/hondavrf_2.png"
+},
+{
+"url":"img/hondavrf_3.png"
+}
+],
+"motor":{
+"type":4,
+"march":6,
+"trans":"Manual",
+"arr":"Eléctrico"
+},
+"fabric":{
+"name":"Honda",
+"country":"Japón"
+},
+"cil":782,
+"size":"2134 x 748 x 1203",
+"weigth":234
+},
+{
+"id":1,
+"name":"FLY 125",
+"desc":"¡Montarse en una scooter nunca fue tan sencillo! La Kymco FLY 125 es ideal para quienes se animan a hacer su vida más fácil moviéndose por la ciudad con estilo y comodidad en una moto tipo scooter.",
+"img":[
+{
+"url":"img/tvshim_1.jpg"
+},
+{
+"url":"img/tvshim_2.png"
+},
+{
+"url":"img/tvshim_3.png"
+}
+],
+"motor":{
+"type":4,
+"march":4,
+"trans":"Electrónica",
+"arr":"Eléctrico"
+},
+"fabric":{
+"name":"Kymco",
+"country":"Corea del Sur"
+},
+"cil":124,
+"size":"1434 x 561 x 903",
+"weigth":107
+}
+]}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang='es' ng-app='app'>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="autor" content="">
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/template.css">
+        <link rel="stylesheet" type="text/css" href="assets/js/uibootstrap/dist/ui-bootstrap-csp.css">
+        <link rel="stylesheet" type="text/css" href="css/animations.css">
+        <title>Escuela Ministerio</title>
+
+        <!-- JS Assets -->
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/angular.min.js"></script>
+        <script type="text/javascript" src="assets/js/angular-animate.min.js"></script>
+        <script type="text/javascript" src="assets/js/angular-resource.min.js"></script>
+        <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+        <script type="text/javascript" src="assets/js/uibootstrap/dist/ui-bootstrap.js"></script>
+        <script type="text/javascript" src="assets/js/uibootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+        <!-- JS Modules -->
+        <script type="text/javascript" src="js/app/core/app.js"></script>
+        <script type="text/javascript" src="js/app/core/app.config.js"></script>
+        <script type="text/javascript" src="js/app/core/app.core.js"></script>
+        <script type="text/javascript" src="js/app/core/app.services.js"></script>
+        <script type="text/javascript" src="js/app/core/app.inicial.js"></script>
+        
+        <!-- JS App.Services -->
+        <script type="text/javascript" src="js/app/services/estudiantes.fact.js"></script>
+        <script type="text/javascript" src="js/app/services/asignaciones.fact.js"></script>
+        <script type="text/javascript" src="js/app/services/discursos.fact.js"></script>
+        <script type="text/javascript" src="js/app/services/motos.fact.js"></script>
+
+        <!-- JS App.Inicial -->
+        <script type="text/javascript" src="js/app/inicial/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/inicial/especifico.ctrl.js"></script>
+        <script type="text/javascript" src="js/app/estudiantes/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/estudiantes/modal.ctrl.js"></script>
+        <script type="text/javascript" src="js/app/discursos/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/estudiante/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/estudiante/dir.js"></script>
+        <script type="text/javascript" src="js/app/asignaciones/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/asignaciones/modal.ctrl.js"></script>
+
+
+
+    </head>
+    <body>
+
+        <!-- Menu general -->
+        <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
+            <div class="navbar-toggler animate">
+                <span class="menu-icon"></span>
+            </div>
+            <ul class="navbar-menu animate">
+                <li>
+                    <a href="/#!/estudiantes" class="animate">
+                        <span class="desc animate"> Estudiantes </span>
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/#!/discursos" class="animate">
+                        <span class="desc animate"> Discursos </span>
+                        <span class="glyphicon glyphicon-file"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/#!/asignaciones" class="animate">
+                        <span class="desc animate"> Asignaciones </span>
+                        <span class="glyphicon glyphicon-blackboard"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Fin menú general -->
+        
+        <div class="container-fuid">
+            <div ng-view>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $('.navbar-toggler').on('click', function(event) {
+                event.preventDefault();
+                $(this).closest('.navbar-minimal').toggleClass('open');
+            });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8">
+		<h1 class="title">Asignaciones</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+		<p>Por favor seleccione una semana para realizar la asignación del discurso con el encargado y asistente correspondiente.</p>
+		<p class="center"><button class="btn btn-info btn-md">Guardar Cambios</button></p>
+	</div>
+</div>
+<div class="row" style="padding-top: 20px;">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background" style="max-height: 450px; overflow-y: auto;">
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-body">
+					<h3 class="center specialt">Seleccione la semana del discurso.</h3>
+					<form>
+						<p class="center">
+							<div class="form-group">
+  								<select class="form-control" id="sel1" ng-model='vm.sel.sem'>
+    								<option ng-repeat='sem in vm.semanas'>{{sem.week}}</option>
+  								</select>
+							</div>
+						</p>
+  					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="panel">
+				<div class="panel-body">
+					<h3 class="center specialt">Seleccione la sala.</h3>
+					<form>
+						<p class="center">
+							<label class="radio-inline">
+      							<input type="radio" ng-model='vm.sel.tabsala' value='A' name="optradio" checked>Sala A
+    						</label>
+    						<label class="radio-inline">
+      							<input type="radio" ng-model='vm.sel.tabsala' value='B' name="optradio">Sala B
+    						</label>
+						</p>
+  					</form>
+				</div>
+			</div>
+		</div>
+		<div ng-repeat='(pIndex, sala) in vm.sel.sala' ng-show='vm.tabSel(sala.id)'><!-- INICIO SALA -->
+			<p>{{sala.id}}</p>
+			<div class="col-xs-12">
+				<div class="cajadiscurso" ng-class='{cajaselec: false}' ng-repeat='disc in sala.disc'>
+					<div class="panel transparent">
+						<div class="panel-body">
+  							<h3 class="center specialt">Discurso {{ $index + 1 }}</h3>
+  							<form class="form-horizontal" name="p{{pIndex}}d{{$index+1}}sa">
+  								<div class="form-group">
+    								<label class="col-sm-3 control-label">Estudiante:</label>
+    								<div class="col-sm-9">
+      									<button ng-click='vm.openModal(pIndex, $index)' type="button" class="btn btn-default btn-lg form-control">{{ disc.est }}   
+  											<span ng-show='disc.est==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"></span><span ng-show='disc.est!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+										</button>
+    								</div>
+  								</div>
+  								<div class="form-group" ng-show='{{ $index > 0 }}'>
+    								<label class="col-sm-3 control-label">Acompañante:</label>
+    								<div class="col-sm-9">
+      									<button type="button" class="btn btn-default btn-lg form-control">{{ disc.acomp }}   
+  											<span ng-show='disc.acomp==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"></span><span ng-show='disc.acomp!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+										</button>
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label class="col-sm-3 control-label">Punto:</label>
+    								<div class="col-sm-9">
+      									<input type="number" step=1 class="form-control" ng-model='disc.pto' required>
+    									<p><small>El ultimo punto fue **, y fue **</small></p>
+    								</div>
+  								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- FIN SALA -->
+	</div>
+</div>
+
+<!-- MODAL DE ESTUDIANTES -->
+	<script type="text/ng-template" id="modalasignacionest.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Seleccione el estudiante</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <p>Cuerpo</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click='vm.actualizar()' ng-disabled='formEstu.$invalid' >Actualizar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </script>
