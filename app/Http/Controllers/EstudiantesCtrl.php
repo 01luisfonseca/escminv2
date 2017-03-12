@@ -99,18 +99,18 @@ class EstudiantesCtrl extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function asignables($genero)
+    public function asignables($genero,$tipo)
     {
         $var=new AutoDiscursos;
         $var->complete();
         if ($genero=='ambos') {
-            $obj=Estudiantes::with(['asignaciones'=>function($query){
-                $query->with('discursos')->orderBy('created_at', '');
+            $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
+                $query->with('discursos')->where('type',$tipo)->orderBy('created_at', '');
             }])->where('id','>',0)->get();
             return $obj->toJson();
         }
-        $obj=Estudiantes::with(['asignaciones'=>function($query){
-            $query->with('discursos')->orderBy('created_at', '');
+        $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
+            $query->with('discursos')->where('type',$tipo)->orderBy('created_at', '');
         }])->where('sex', $genero)->get();
         return $obj->toJson();
     }

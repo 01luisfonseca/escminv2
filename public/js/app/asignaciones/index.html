@@ -6,7 +6,7 @@
 <div class="row">
 	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
 		<p>Por favor seleccione una semana para realizar la asignación del discurso con el encargado y asistente correspondiente.</p>
-		<p class="center"><button class="btn btn-info btn-md">Guardar Cambios</button></p>
+		<p class="center"><button class="btn btn-info btn-md" ng-click="vm.guardarInfo()">Guardar Cambios</button></p>
 	</div>
 </div>
 <div class="row" style="padding-top: 20px;">
@@ -54,16 +54,16 @@
   								<div class="form-group">
     								<label class="col-sm-3 control-label">Estudiante:</label>
     								<div class="col-sm-9">
-      									<button ng-click='vm.openModal(pIndex, $index)' type="button" class="btn btn-default btn-lg form-control">{{ disc.est }}   
-  											<span ng-show='disc.est==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"></span><span ng-show='disc.est!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+      									<button ng-click='vm.openModal(pIndex, $index, "est")' type="button" class="btn btn-default btn-lg form-control">{{ disc.est }}   
+  											 <span ng-show='disc.est==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"> </span><span ng-show='disc.est!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
 										</button>
     								</div>
   								</div>
   								<div class="form-group" ng-show='{{ $index > 0 }}'>
     								<label class="col-sm-3 control-label">Acompañante:</label>
     								<div class="col-sm-9">
-      									<button type="button" class="btn btn-default btn-lg form-control">{{ disc.acomp }}   
-  											<span ng-show='disc.acomp==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"></span><span ng-show='disc.acomp!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+      									<button ng-click='vm.openModal(pIndex, $index, "acomp")' type="button" class="btn btn-default btn-lg form-control">{{ disc.acomp }}   
+  											 <span ng-show='disc.acomp==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"> </span><span ng-show='disc.acomp!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
 										</button>
     								</div>
   								</div>
@@ -71,7 +71,7 @@
     								<label class="col-sm-3 control-label">Punto:</label>
     								<div class="col-sm-9">
       									<input type="number" step=1 class="form-control" ng-model='disc.pto' required>
-    									<p><small>El ultimo punto fue **, y fue **</small></p>
+    									<p ng-show="disc.ptoa!==''"><small>El ultimo punto trabajado fue {{disc.ptoa}}.</small></p>
     								</div>
   								</div>
 							</form>
@@ -95,13 +95,15 @@
 						<th>NOMBRE</th>
 						<th>GÉNERO</th>
 						<th>ULTIMO DISCURSO</th>
+						<th>No</th>
 						<th>TIPO</th>
 					</tr>
-					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].created_at"' ng-click='vm.selAlumno($index)'>
+					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].discursos.week"' ng-click='vm.selAlumno($index)'>
 						<td>{{ alumno.name }}</td>
 						<td>{{ alumno.sex }}</td>
-						<td>{{ alumno.asignaciones[0].created_at? alumno.asignaciones[0].created_at : 'No tiene' }}</td>
-						<td>{{ alumno.asignaciones[0].created_at? alumno.asignaciones[0].type : 'No tiene' }}</td>							
+						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'No tiene' }}</td>
+						<td>{{ alumno.asignaciones[0].discursos.alloc? alumno.asignaciones[0].discursos.alloc : 'No tiene' }}</td>						
+						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].type : 'No tiene' }}</td>							
 					</tr>
 				</table>
 			</div>

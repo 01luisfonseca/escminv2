@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('estudiantes', 'EstudiantesCtrl');
-Route::get('estudiantes/asignables/{genero}', 'EstudiantesCtrl@asignables');
+Route::get('estudiantes/asignables/{genero}/{tipo}', 'EstudiantesCtrl@asignables');
 
 Route::resource('asignaciones', 'AsignacionesCtrl');
 Route::resource('discursos', 'DiscursosCtrl');

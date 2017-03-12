@@ -12,7 +12,7 @@
         	'update': { method:'PUT' },
         	'asignable': { 
         		method:'GET',
-        		url: 'api/estudiantes/asignables/:genero',
+        		url: 'api/estudiantes/asignables/:genero/:tipo',
         		isArray: true
         	}    	
         });

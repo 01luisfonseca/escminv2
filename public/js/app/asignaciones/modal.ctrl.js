@@ -24,8 +24,6 @@
         //Funciones
         vm.ok=ok;
         vm.cancel=cancel;
-        vm.ultimoDiscurso=ultimoDiscurso;
-        vm.ultimoTipo=ultimoTipo;
         vm.selAlumno=selAlumno;
         
         //Lanzamiento automático
@@ -33,19 +31,19 @@
         
         //Declaracion de funciones
         function activate(){
-            getAlumnos(vm.data.id==1? 'hombre': undefined);
+            getAlumnos(vm.data.disc.gen, vm.data.type);
         }
 
         // Selecciona un alumno para enviarlo al controlador.
         function selAlumno(idx){
-            console.log(vm.alumnos[idx]);
+            ok(vm.alumnos[idx]);
         }
 
         // Obtener todos los alumnos
-        function getAlumnos(genero){
+        function getAlumnos(genero, tipo){
             vm.alumnos=[];
             if (!genero) genero='ambos';
-            return EstudiantesFct.asignable({genero:genero},(data)=>{
+            return EstudiantesFct.asignable({genero:genero, tipo:tipo},(data)=>{
                 vm.alumnos=data;
                 vm.alumnos.sort((a,b)=>{
                     if(a.name>b.name) return 1;
@@ -56,14 +54,13 @@
                         return new Date(b.updated_at) - new Date(a.updated_at);
                     });
                     for (var j = 0; j < vm.alumnos[i].asignaciones.length; j++) {
-                        vm.alumnos[i].asignaciones[j].updated_at = new Date(vm.alumnos[i].asignaciones[j].updated_at);
-                        vm.alumnos[i].asignaciones[j].created_at = new Date(vm.alumnos[i].asignaciones[j].created_at);
+                        vm.alumnos[i].asignaciones[j].discursos.week = new Date(vm.alumnos[i].asignaciones[j].discursos.week);
                     }
                 }
             });
         }
-         function ok() {
-            $uibModalInstance.close('Cerrado con OK');
+         function ok(sel) {
+            $uibModalInstance.close(sel);
         }
         function cancel () {
             $uibModalInstance.dismiss('cancel');
