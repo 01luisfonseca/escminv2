@@ -97,11 +97,11 @@
 						<th>ULTIMO DISCURSO</th>
 						<th>TIPO</th>
 					</tr>
-					<tr ng-repeat='alumno in vm.alumnos' ng-click='vm.selAlumno($index)'>
+					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].created_at"' ng-click='vm.selAlumno($index)'>
 						<td>{{ alumno.name }}</td>
 						<td>{{ alumno.sex }}</td>
-						<td>{{ vm.ultimoDiscurso(alumno.id) }}</td>
-						<td>{{ vm.ultimoTipo(alumno.id) }}</td>							
+						<td>{{ alumno.asignaciones[0].created_at? alumno.asignaciones[0].created_at : 'No tiene' }}</td>
+						<td>{{ alumno.asignaciones[0].created_at? alumno.asignaciones[0].type : 'No tiene' }}</td>							
 					</tr>
 				</table>
 			</div>
