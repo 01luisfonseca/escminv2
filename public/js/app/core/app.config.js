@@ -43,4 +43,4 @@
                 redirectTo: '/inicial'
             });
     }
-})()
+})();

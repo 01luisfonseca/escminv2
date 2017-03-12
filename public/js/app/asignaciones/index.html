@@ -45,7 +45,6 @@
 			</div>
 		</div>
 		<div ng-repeat='(pIndex, sala) in vm.sel.sala' ng-show='vm.tabSel(sala.id)'><!-- INICIO SALA -->
-			<p>{{sala.id}}</p>
 			<div class="col-xs-12">
 				<div class="cajadiscurso" ng-class='{cajaselec: false}' ng-repeat='disc in sala.disc'>
 					<div class="panel transparent">
@@ -87,13 +86,27 @@
 <!-- MODAL DE ESTUDIANTES -->
 	<script type="text/ng-template" id="modalasignacionest.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Seleccione el estudiante</h3>
+            <h4 class="modal-title" id="modal-title">Seleccione el estudiante</h4>
         </div>
         <div class="modal-body" id="modal-body">
-        <p>Cuerpo</p>
+			<div class='table-responsive'>
+				<table class='table table-hover table-striped'>
+					<tr>
+						<th>NOMBRE</th>
+						<th>GÉNERO</th>
+						<th>ULTIMO DISCURSO</th>
+						<th>TIPO</th>
+					</tr>
+					<tr ng-repeat='alumno in vm.alumnos' ng-click='vm.selAlumno($index)'>
+						<td>{{ alumno.name }}</td>
+						<td>{{ alumno.sex }}</td>
+						<td>{{ vm.ultimoDiscurso(alumno.id) }}</td>
+						<td>{{ vm.ultimoTipo(alumno.id) }}</td>							
+					</tr>
+				</table>
+			</div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click='vm.actualizar()' ng-disabled='formEstu.$invalid' >Actualizar</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
         </div>
     </script>
