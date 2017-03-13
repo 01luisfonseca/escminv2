@@ -18,7 +18,7 @@
 					<form>
 						<p class="center">
 							<div class="form-group">
-  								<select class="form-control" id="sel1" ng-model='vm.sel.sem'>
+  								<select class="form-control" id="sel1" ng-model='vm.sel.sem' ng-change='vm.actSem()'>
     								<option ng-repeat='sem in vm.semanas'>{{sem.week}}</option>
   								</select>
 							</div>
@@ -71,7 +71,7 @@
     								<label class="col-sm-3 control-label">Punto:</label>
     								<div class="col-sm-9">
       									<input type="number" step=1 class="form-control" ng-model='disc.pto' required>
-    									<p ng-show="disc.ptoa!==''"><small>El ultimo punto trabajado fue {{disc.ptoa}}.</small></p>
+    									<p ng-show="vm.hayPtoa(pIndex,$index)"><h5>El ultimo punto trabajado fue {{disc.ptoa}}.</h5></p>
     								</div>
   								</div>
 							</form>
@@ -98,7 +98,7 @@
 						<th>No</th>
 						<th>TIPO</th>
 					</tr>
-					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].discursos.week"' ng-click='vm.selAlumno($index)'>
+					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].discursos.week"' ng-click='vm.selAlumno(alumno.id)'>
 						<td>{{ alumno.name }}</td>
 						<td>{{ alumno.sex }}</td>
 						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'No tiene' }}</td>

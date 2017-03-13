@@ -12,16 +12,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['throttle:150'],function (){
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::resource('estudiantes', 'EstudiantesCtrl');
+    Route::get('estudiantes/asignables/{genero}/{tipo}', 'EstudiantesCtrl@asignables');
+
+    Route::resource('asignaciones', 'AsignacionesCtrl');
+    Route::resource('discursos', 'DiscursosCtrl');
+
+    // Rutas especiales
 });
-
-Route::resource('estudiantes', 'EstudiantesCtrl');
-Route::get('estudiantes/asignables/{genero}/{tipo}', 'EstudiantesCtrl@asignables');
-
-Route::resource('asignaciones', 'AsignacionesCtrl');
-Route::resource('discursos', 'DiscursosCtrl');
-
-// Rutas especiales
 

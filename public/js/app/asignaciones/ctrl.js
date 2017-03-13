@@ -8,8 +8,11 @@
         
         //Variables
         vm.semanas={};
+        vm.discursos=[];
 
         //Funciones
+        vm.actSem=actSem;
+        vm.hayPtoa=hayPtoa;
         vm.guardarInfo=guardarInfo;
         vm.tabSel= tabSel;
         vm.openModal=openModal; // Selecciona estudiante desde index de sala y de discurso.
@@ -21,6 +24,25 @@
         function activate(){
             initObj();
             getSemanas();
+        }
+        function hayPtoa(idP, idC){
+            if(vm.sel.sala[idP].disc[idC].ptoa!==0){
+                return true;
+            }
+            return false;
+        }
+        function actSem(){
+            var discSem=[];
+            for (var i = 0; i < vm.discursos.length; i++) {
+                if(vm.discursos[i].week===vm.sel.sem){
+                    discSem.push({id:vm.discursos[i].id, alloc:parseInt(vm.discursos[i].alloc)});
+                }
+            }
+            for (var i = 0; i < vm.sel.sala.length; i++) {
+                for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
+                    vm.sel.sala[i].disc[j].iddisc=discSem[j].id;
+                }
+            }
         }
         function getSem(arr){
             var tem=[];
@@ -36,7 +58,7 @@
         function guardarInfo(){
             var msj=[];
             var err=false;
-            console.log(vm.sel);
+            console.log(vm.sel.sala);
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
                     if (j>0) {
@@ -53,23 +75,45 @@
                 }
             }
             if (err) {
-                $window.alert(msj);
+                $window.alert(msj); // Retorna los incompletos
                 return 'error';
             }
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
                     if (j>0) {
                         var asig=new AsignacionesFct();
-                        asig.data={};
+                        asig.type= 'est'; 
+                        asig.point= vm.sel.sala[i].disc[j].pto;
+                        asig.room= vm.sel.sala[i].id;
+                        asig.estudiantes_id= vm.sel.sala[i].disc[j].idest;
+                        asig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
                         asig.$save();
-                    }else{}
+                        var aasig=new AsignacionesFct();
+                        aasig.type= 'acomp'; 
+                        aasig.point= vm.sel.sala[i].disc[j].pto;
+                        aasig.room= vm.sel.sala[i].id;
+                        aasig.estudiantes_id= vm.sel.sala[i].disc[j].idacomp;
+                        aasig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
+                        aasig.$save();
+                    }else{
+                        var asig=new AsignacionesFct();
+                        asig.type= 'est'; 
+                        asig.point= vm.sel.sala[i].disc[j].pto;
+                        asig.room= vm.sel.sala[i].id;
+                        asig.estudiantes_id= vm.sel.sala[i].disc[j].idest;
+                        asig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
+                        asig.$save();
+                    }
                 }                
             }
+            initObj();
         }
         function getSemanas(){
             return DiscursosFct.query({},(data)=>{
+                vm.discursos=data;
                 vm.semanas=getSem(data);
                 vm.sel.sem=vm.semanas[0].week;
+                actSem();
             })
         }
         function tabSel(tab){
@@ -108,7 +152,7 @@
                 vm.sel.sala[idP].disc[idC]['id'+type]=selectedItem.id;
                 vm.sel.sala[idP].disc[idC].gen=selectedItem.sex;
                 if (type==='est') {
-                    vm.sel.sala[idP].disc[idC].ptoa=selectedItem.asignaciones.length? selectedItem.asignaciones[0].point: '';
+                    vm.sel.sala[idP].disc[idC].ptoa=selectedItem.asignaciones.length? selectedItem.asignaciones[0].point: 0;
                 }
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
@@ -116,7 +160,7 @@
         }
         function initObj(){
             vm.sel={
-                sem:0,
+                sem:'',
                 tabsala:'A',
                 sala:[
                     {
@@ -124,42 +168,46 @@
                         disc: [
                             {
                                 id:1,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'hombre'
                             },
                             {
                                 id:2,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                             {
                                 id:3,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                             {
                                 id:4,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                         ],
@@ -169,42 +217,46 @@
                         disc: [
                             {
                                 id:1,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'hombre'
                             },
                             {
                                 id:2,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                             {
                                 id:3,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                             {
                                 id:4,
+                                iddisc:0,
                                 idest:0,
                                 idacomp:0,
                                 est:'',
                                 acomp:'',
-                                pto:'',
-                                ptoa:'',
+                                pto:0,
+                                ptoa:0,
                                 gen:'ambos'
                             },
                         ],
@@ -214,4 +266,4 @@
         }
     }
     
-})()
+})();

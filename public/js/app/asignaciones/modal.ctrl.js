@@ -36,7 +36,12 @@
 
         // Selecciona un alumno para enviarlo al controlador.
         function selAlumno(idx){
-            ok(vm.alumnos[idx]);
+            for (var i = 0; i < vm.alumnos.length; i++) {
+                if (vm.alumnos[i].id===idx) {
+                     ok(vm.alumnos[i]);
+                     break;
+                }
+            }
         }
 
         // Obtener todos los alumnos
