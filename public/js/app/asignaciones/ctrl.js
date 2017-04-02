@@ -11,6 +11,7 @@
         vm.discursos=[];
 
         //Funciones
+        vm.limpiaDisc=limpiaDisc;
         vm.actSem=actSem;
         vm.hayPtoa=hayPtoa;
         vm.guardarInfo=guardarInfo;
@@ -24,6 +25,21 @@
         function activate(){
             initObj();
             getSemanas();
+        }
+        function limpiaDisc(disc){
+            disc.id=1;
+            disc.iddisc=0;
+            disc.idest=0;
+            disc.idacomp=0;
+            disc.est='';
+            disc.acomp='';
+            disc.pto=0;
+            disc.ptoa=0;
+            if(disc.ayuda){
+                disc.gen='ambos'; // Si hay ayudante
+            }else{
+                disc.gen='hombre'; // Si no hay ayudante
+            }
         }
         function hayPtoa(idP, idC){
             if(vm.sel.sala[idP].disc[idC].ptoa!==0){
@@ -50,7 +66,9 @@
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i].week!=acum) {
                     acum=arr[i].week;
-                    tem.push({week: arr[i].week});
+                    if(!arr[i].asignaciones.length){
+                        tem.push({week: arr[i].week});
+                    }
                 }
             }
             return tem;
@@ -61,7 +79,7 @@
             console.log(vm.sel.sala);
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
-                    if (j>0) {
+                    if (vm.sel.sala[i].disc[j].ayuda) {
                         if (vm.sel.sala[i].disc[j].est==='' || vm.sel.sala[i].disc[j].acomp==='' || vm.sel.sala[i].disc[j].pto==='') {
                             err=true;
                             msj.push('Hace falta completar información en: SALA '+vm.sel.sala[i].id+', DISCURSO '+vm.sel.sala[i].disc[j].id);
@@ -78,35 +96,65 @@
                 $window.alert(msj); // Retorna los incompletos
                 return 'error';
             }
+            var elementosToSalvar=[];
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
-                    if (j>0) {
-                        var asig=new AsignacionesFct();
-                        asig.type= 'est'; 
-                        asig.point= vm.sel.sala[i].disc[j].pto;
-                        asig.room= vm.sel.sala[i].id;
-                        asig.estudiantes_id= vm.sel.sala[i].disc[j].idest;
-                        asig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
-                        asig.$save();
-                        var aasig=new AsignacionesFct();
-                        aasig.type= 'acomp'; 
-                        aasig.point= vm.sel.sala[i].disc[j].pto;
-                        aasig.room= vm.sel.sala[i].id;
-                        aasig.estudiantes_id= vm.sel.sala[i].disc[j].idacomp;
-                        aasig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
-                        aasig.$save();
-                    }else{
-                        var asig=new AsignacionesFct();
-                        asig.type= 'est'; 
-                        asig.point= vm.sel.sala[i].disc[j].pto;
-                        asig.room= vm.sel.sala[i].id;
-                        asig.estudiantes_id= vm.sel.sala[i].disc[j].idest;
-                        asig.discursos_id= vm.sel.sala[i].disc[j].iddisc;
-                        asig.$save();
+                    elementosToSalvar.push({
+                        type: 'est', 
+                        point: vm.sel.sala[i].disc[j].pto,
+                        room: vm.sel.sala[i].id,
+                        estudiantes_id: vm.sel.sala[i].disc[j].idest,
+                        discursos_id: vm.sel.sala[i].disc[j].iddisc,
+                    });
+                    if (vm.sel.sala[i].disc[j].ayuda) {
+                        elementosToSalvar.push({
+                            type: 'acomp', 
+                            point: vm.sel.sala[i].disc[j].pto,
+                            room: vm.sel.sala[i].id,
+                            estudiantes_id: vm.sel.sala[i].disc[j].idacomp,
+                            discursos_id: vm.sel.sala[i].disc[j].iddisc,
+                        });
                     }
                 }                
             }
-            initObj();
+            almacenarAsignaciones(elementosToSalvar).then(
+                (dt)=>{
+                    activate();                    
+                    console.log('Asignaciones almacenadas');
+                },
+                (e)=>{
+                    console.error(e);
+                }
+            );
+        }
+        function almacenarAsignaciones(arr){
+            if(!arr.length) return false;
+            let promise= new Promise((res, rej)=>{
+                console.log(arr);
+                var asig=new AsignacionesFct();
+                asig.type= arr[0].type; 
+                asig.point= arr[0].point;
+                asig.room= arr[0].room;
+                asig.estudiantes_id= arr[0].estudiantes_id;
+                asig.discursos_id= arr[0].discursos_id;
+                asig.$save().then(
+                    (dt)=>{
+                        arr.shift();
+                        if(arr.length>0){
+                            return almacenarAsignaciones(arr);
+                        }else{
+                            activate();                    
+                            console.log('Asignaciones almacenadas');
+                            res(dt);
+                        }
+                    },
+                    (e)=>{
+                        console.error(e);
+                        rej(e);
+                    }
+                );
+            });
+            return promise;
         }
         function getSemanas(){
             return DiscursosFct.query({},(data)=>{
@@ -148,9 +196,11 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
+                //console.log(selectedItem);
                 vm.sel.sala[idP].disc[idC][type]=selectedItem.name;
                 vm.sel.sala[idP].disc[idC]['id'+type]=selectedItem.id;
                 vm.sel.sala[idP].disc[idC].gen=selectedItem.sex;
+                vm.sel.sala[idP].disc[idC].pto=selectedItem.asignaciones.length>0?(selectedItem.asignaciones[0].futurepoint?selectedItem.asignaciones[0].futurepoint:0):0;
                 if (type==='est') {
                     vm.sel.sala[idP].disc[idC].ptoa=selectedItem.asignaciones.length? selectedItem.asignaciones[0].point: 0;
                 }
@@ -175,7 +225,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'hombre'
+                                gen:'hombre',
+                                ayuda:false
                             },
                             {
                                 id:2,
@@ -186,7 +237,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                             {
                                 id:3,
@@ -197,7 +249,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                             {
                                 id:4,
@@ -208,7 +261,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                         ],
                     },
@@ -224,7 +278,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'hombre'
+                                gen:'hombre',
+                                ayuda:false
                             },
                             {
                                 id:2,
@@ -235,7 +290,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                             {
                                 id:3,
@@ -246,7 +302,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                             {
                                 id:4,
@@ -257,7 +314,8 @@
                                 acomp:'',
                                 pto:0,
                                 ptoa:0,
-                                gen:'ambos'
+                                gen:'ambos',
+                                ayuda:true
                             },
                         ],
                     }

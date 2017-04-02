@@ -15,9 +15,9 @@ class DiscursosCtrl extends Controller
      */
     public function index()
     {
-        $monday=Carbon::today()->startOfWeek();
+        $monday=Carbon::today()->startOfWeek()->subWeeks(4);
         $future=Carbon::today()->addWeek(8)->startOfWeek();
-        $obj=Discursos::whereBetween('week',[$monday, $future])->get();
+        $obj=Discursos::whereBetween('week',[$monday, $future])->with('asignaciones')->get();
         return $obj->toJson();
     }
 

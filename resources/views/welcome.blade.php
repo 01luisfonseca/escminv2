@@ -76,6 +76,12 @@
                         <span class="glyphicon glyphicon-blackboard"></span>
                     </a>
                 </li>
+                <li>
+                    <a href="/#!/programacion" class="animate">
+                        <span class="desc animate"> Programación </span>
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- Fin menú general -->

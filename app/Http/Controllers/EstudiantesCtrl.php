@@ -105,13 +105,21 @@ class EstudiantesCtrl extends Controller
         $var->complete();
         if ($genero=='ambos') {
             $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
-                $query->with('discursos')->where('type',$tipo)->orderBy('created_at', '');
-            }])->where('id','>',0)->get();
+                $query->with('discursos')
+                    ->select('asignaciones.*','discursos.week')
+                    ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                    ->where('type',$tipo)
+                    ->orderBy('week', 'desc');
+            }])->where('estado','>',0)->get();
             return $obj->toJson();
         }
         $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
-            $query->with('discursos')->where('type',$tipo)->orderBy('created_at', '');
-        }])->where('sex', $genero)->get();
+            $query->with('discursos')
+                ->select('asignaciones.*','discursos.week')
+                ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                ->where('type',$tipo)
+                ->orderBy('week', 'desc');
+        }])->where('sex', $genero)->where('estado','>',0)->get();
         return $obj->toJson();
     }
 }

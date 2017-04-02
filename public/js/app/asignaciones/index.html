@@ -59,7 +59,10 @@
 										</button>
     								</div>
   								</div>
-  								<div class="form-group" ng-show='{{ $index > 0 }}'>
+  								<div class="col-xs-offset-3 checkbox" ng-if='$index > 0'>
+								  <label><input type="checkbox" ng-click='vm.limpiaDisc(disc)' ng-model='disc.ayuda'>Tiene acompañante?</label>
+								</div>
+  								<div class="form-group" ng-if='disc.ayuda'>
     								<label class="col-sm-3 control-label">Acompañante:</label>
     								<div class="col-sm-9">
       									<button ng-click='vm.openModal(pIndex, $index, "acomp")' type="button" class="btn btn-default btn-lg form-control">{{ disc.acomp }}   
@@ -98,12 +101,12 @@
 						<th>No</th>
 						<th>TIPO</th>
 					</tr>
-					<tr ng-repeat='alumno in vm.alumnos | orderBy:"-asignaciones[0].discursos.week"' ng-click='vm.selAlumno(alumno.id)'>
+					<tr ng-repeat='alumno in vm.alumnos | orderBy:"asignaciones[0].discursos.week"' ng-click='vm.selAlumno(alumno.id)'>
 						<td>{{ alumno.name }}</td>
 						<td>{{ alumno.sex }}</td>
-						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'No tiene' }}</td>
-						<td>{{ alumno.asignaciones[0].discursos.alloc? alumno.asignaciones[0].discursos.alloc : 'No tiene' }}</td>						
-						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].type : 'No tiene' }}</td>							
+						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'NUNCA HA TENIDO' }}</td>
+						<td>{{ alumno.asignaciones[0].discursos.alloc? alumno.asignaciones[0].discursos.alloc : 'NUNCA HA TENIDO' }}</td>						
+						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].type : 'NUNCA HA TENIDO' }}</td>							
 					</tr>
 				</table>
 			</div>

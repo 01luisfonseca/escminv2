@@ -19,7 +19,7 @@
         //Variables
         vm.data = items;
         vm.alumnos=[];
-        console.log(items);
+        //console.log(items);
 
         //Funciones
         vm.ok=ok;
@@ -54,13 +54,27 @@
                     if(a.name>b.name) return 1;
                     return -1;
                 });
-                for (var i = 0; i < vm.alumnos[i].asignaciones.length; i++) {
-                   vm.alumnos[i].asignaciones.sort(function(a,b){
-                        return new Date(b.updated_at) - new Date(a.updated_at);
-                    });
-                    for (var j = 0; j < vm.alumnos[i].asignaciones.length; j++) {
-                        vm.alumnos[i].asignaciones[j].discursos.week = new Date(vm.alumnos[i].asignaciones[j].discursos.week);
+                vm.alumnos.sort((a,b)=>{
+                    if(!a.asignaciones) return -1;
+                    if(a.asignaciones.length==0) return -1;
+                    if(!b.asignaciones) return 1;
+                    if(b.asignaciones.length==0) return 1;
+                    if(a.asignaciones[0].week>b.asignaciones[0].week) return 1;
+                    return -1;
+                });
+                var acum=[];
+                // Para filtrar los alumnos que ya están seleccionados en la actual carga
+                for (var i = 0; i < vm.data.all.sala.length; i++) {
+                    for (var j = 0; j < vm.data.all.sala[i].disc.length; j++) {
+                        try{
+                        for (var k = 0; k < vm.alumnos.length; k++) {
+                            if(vm.data.all.sala[i].disc[j].idest==vm.alumnos[k].id || vm.data.all.sala[i].disc[j].idacomp==vm.alumnos[k].id){
+                                vm.alumnos.splice(k,1);
+                            }                            
+                        }
+                        }catch(e){}
                     }
+                    vm.data.all.sala[i]
                 }
             });
         }
