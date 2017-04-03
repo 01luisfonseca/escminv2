@@ -145,6 +145,7 @@
                         }else{
                             activate();                    
                             console.log('Asignaciones almacenadas');
+                            $window.alert('Asignaciones almacenadas');
                             res(dt);
                         }
                     },
@@ -196,7 +197,6 @@
                 }
             });
             modalInstance.result.then(function (selectedItem) {
-                //console.log(selectedItem);
                 vm.sel.sala[idP].disc[idC][type]=selectedItem.name;
                 vm.sel.sala[idP].disc[idC]['id'+type]=selectedItem.id;
                 vm.sel.sala[idP].disc[idC].gen=selectedItem.sex;

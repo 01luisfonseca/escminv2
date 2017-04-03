@@ -46,8 +46,8 @@
         <script type="text/javascript" src="js/app/estudiante/dir.js"></script>
         <script type="text/javascript" src="js/app/asignaciones/ctrl.js"></script>
         <script type="text/javascript" src="js/app/asignaciones/modal.ctrl.js"></script>
-
-
+        <script type="text/javascript" src="js/app/programacion/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/programacion/formprog.dir.js"></script>
 
     </head>
     <body>

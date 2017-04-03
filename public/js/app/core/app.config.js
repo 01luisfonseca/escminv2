@@ -39,6 +39,11 @@
                 controller: 'AsignacionesController',
                 controllerAs:'vm'
             })
+            .when('/programacion', {
+                templateUrl: 'js/app/programacion/index.html',
+                controller: 'ProgramacionController',
+                controllerAs:'vm'
+            })
             .otherwise({
                 redirectTo: '/inicial'
             });
