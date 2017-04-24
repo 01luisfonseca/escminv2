@@ -51,6 +51,21 @@ class AsignacionesCtrl extends Controller
     }
 
     /**
+     * Guarda el futurepoint
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function futurepoint($id, $pto)
+    {
+        $elem=Asignaciones::findOrFail($id);
+        $elem->futurepoint=$pto;
+        $elem->updated_at=Carbon::now();
+        $elem->save();
+        return response()->json(['msj'=>'Punto futuro ajustado: Punto '+$elem->futurepoint+', ID '+$elem->id]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

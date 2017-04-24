@@ -8,6 +8,12 @@
     .factory('AsignacionesFct',['$resource',factory]);
     
     function factory($resource){
-        return $resource('api/asignaciones/:id', {},{});
+        return $resource('api/asignaciones/:id', {},{
+            'proxpoint': { 
+        		method:'POST',
+        		url: 'api/asignaciones/:id/:pto',
+        		isArray: false
+        	}
+        });
     }
 })()

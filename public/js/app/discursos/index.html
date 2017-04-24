@@ -17,12 +17,18 @@
 					<tr>
 						<th>No. Discurso</th>
 						<th>Semana</th>
+						<th>Discursante</th>
+						<th>Punto del Discurso</th>
+						<th>Punto a Trabajar</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat='dt in vm.datas'>
 						<td>{{dt.alloc}}</td>
 						<td>{{dt.week}}</td>
+						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].estudiantes.name : 'Libre' }}</td>
+						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].point : '' }}</td>
+						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].futurepoint : '' }}</td>
 					</tr>
 				</tbody>
 			</table>

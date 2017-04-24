@@ -15,9 +15,11 @@ class DiscursosCtrl extends Controller
      */
     public function index()
     {
-        $monday=Carbon::today()->startOfWeek()->subWeeks(4);
-        $future=Carbon::today()->addWeek(8)->startOfWeek();
-        $obj=Discursos::whereBetween('week',[$monday, $future])->with('asignaciones')->get();
+        $monday=Carbon::today()->startOfWeek()->subWeeks(8); // Cuantas semanasde anterioridad se van a ver en la asignación
+        $future=Carbon::today()->addWeek(8)->startOfWeek(); // Cuantas semanasposteriores se van a ver
+        $obj=Discursos::whereBetween('week',[$monday, $future])->with(['asignaciones'=>function($query){
+            $query->with('estudiantes')->where('type','est');
+        }])->get();
         return $obj->toJson();
     }
 
@@ -84,5 +86,23 @@ class DiscursosCtrl extends Controller
         $obj=Discursos::findOrFail($id);
         $obj->delete();
         return response()->json(['msj'=>'Discurso eliminado con ID '+$elem->id]); 
+    }
+
+    /**
+     * Devuelve las asignaciones mensuales.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function mensual($anio, $mes)
+    {
+        $first=Carbon::create($anio, $mes, 1, 0, 0, 0)->startOfWeek();
+        if($first->month!==$mes){
+            $first->addWeek(1); // Si no es el primer lunes del mes, añade una semana
+        }
+        $second=Carbon::create($anio, $mes, 1, 0, 0, 0)->endOfMonth(); // Fin del mes
+        $obj=Discursos::whereBetween('week',[$first, $second])->with('asignaciones.estudiantes')->get();
+        return $obj->toJson();
     }
 }

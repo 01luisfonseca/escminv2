@@ -1,1 +1,77 @@
-<div>Adentro</div>
+<div ng-if='vm.mesSeleccionado()'>
+    <h4>Por favor seleccione un año y un mes para mostrar los resultados.</h4>
+</div>
+<div ng-if='vm.puntoprox.length > 0'>
+    <p><button class="btn btn-warning" ng-click="vm.guardar()"> GUARDAR PUNTOS A TRABAJAR</button></p>
+</div>
+<p ng-if='!vm.mesSeleccionado()'><button class="btn btn-info" ng-click="vm.imprimir()"> IMPRIMIR LISTA</button></p>
+<div id='imprimeProg' ng-if='!vm.mesSeleccionado()'>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 style="text-align: center; width: auto;">PROGRAMACION LECTURA DE LA BIBLIA Y SEAMOS MEJORES MAESTROS</h3>
+        </div>
+        <div class="col-xs-12">
+            <h3 style="text-align: center; width: auto;"><small><em>MES: {{vm.getNameMes()}}</em></small></h3>
+        </div>
+    </div>
+    <div class="panel panel-default" ng-repeat="disc in vm.disc">
+        <div class="container-fluid">
+            <div class="row">
+                <h4 style="text-align: center; width: auto;"><em>SEMANA DEL {{disc.week}}</em></h4>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-5">
+                    <div class="col-xs-7">
+                        <h5>SALA PRINCIPAL</h5>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6">
+                            <p>Pto</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Prox</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="col-xs-7">
+                        <h5>SALA AUXILIAR</h5>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6">
+                            <p>Pto</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Prox</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-repeat="asig in disc.discursos">
+                <div class="col-xs-2">
+                    <p>Discurso {{asig.alloc}}</p>
+                </div>
+                <div class="col-xs-5">
+                    <div class="col-xs-7">
+                        <p ng-repeat="estud in vm.discursantes('A',asig.asignaciones)">{{estud.estudiantes.name}}</p>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px;">{{vm.buscarPto('pto','A',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','A',asig.asignaciones)!=null">{{vm.buscarPto('prox','A',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','A',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'A',asig.asignaciones)"></div>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="col-xs-7">
+                        <p ng-repeat="estud in vm.discursantes('B',asig.asignaciones)">{{estud.estudiantes.name}}</p>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px;">{{vm.buscarPto('pto','B',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','B',asig.asignaciones)!=null">{{vm.buscarPto('prox','A',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','B',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'B',asig.asignaciones)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
