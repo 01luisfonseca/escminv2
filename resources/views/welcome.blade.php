@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='es' ng-app='app'>
+<html lang='es'>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +20,7 @@
         <script type="text/javascript" src="assets/js/angular-animate.min.js"></script>
         <script type="text/javascript" src="assets/js/angular-resource.min.js"></script>
         <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+        <script type="text/javascript" src="assets/js/ngStorage.min.js"></script>
         <script type="text/javascript" src="assets/js/uibootstrap/dist/ui-bootstrap.js"></script>
         <script type="text/javascript" src="assets/js/uibootstrap/dist/ui-bootstrap-tpls.js"></script>
 
@@ -34,6 +35,7 @@
         <script type="text/javascript" src="js/app/services/estudiantes.fact.js"></script>
         <script type="text/javascript" src="js/app/services/asignaciones.fact.js"></script>
         <script type="text/javascript" src="js/app/services/discursos.fact.js"></script>
+        <script type="text/javascript" src="js/app/services/auth.fact.js"></script>
         <script type="text/javascript" src="js/app/services/motos.fact.js"></script>
 
         <!-- JS App.Inicial -->
@@ -48,54 +50,18 @@
         <script type="text/javascript" src="js/app/asignaciones/modal.ctrl.js"></script>
         <script type="text/javascript" src="js/app/programacion/ctrl.js"></script>
         <script type="text/javascript" src="js/app/programacion/formprog.dir.js"></script>
+        <script type="text/javascript" src="js/app/menu/dir.js"></script>
+        <script type="text/javascript" src="js/app/login/ctrl.js"></script>
 
     </head>
-    <body>
+    <body ng-app='app'>
 
-        <!-- Menu general -->
-        <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
-            <div class="navbar-toggler animate">
-                <span class="menu-icon"></span>
-            </div>
-            <ul class="navbar-menu animate">
-                <li>
-                    <a href="/#!/estudiantes" class="animate">
-                        <span class="desc animate"> Estudiantes </span>
-                        <span class="glyphicon glyphicon-user"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/#!/discursos" class="animate">
-                        <span class="desc animate"> Discursos </span>
-                        <span class="glyphicon glyphicon-file"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/#!/asignaciones" class="animate">
-                        <span class="desc animate"> Asignaciones </span>
-                        <span class="glyphicon glyphicon-blackboard"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/#!/programacion" class="animate">
-                        <span class="desc animate"> Programación </span>
-                        <span class="glyphicon glyphicon-envelope"></span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Fin menú general -->
-        
         <div class="container-fuid">
             <div ng-view>
             </div>
         </div>
 
         <script type="text/javascript">
-            $('.navbar-toggler').on('click', function(event) {
-                event.preventDefault();
-                $(this).closest('.navbar-minimal').toggleClass('open');
-            });
         </script>
 
     </body>

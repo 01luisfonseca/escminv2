@@ -13,4 +13,4 @@
 		/* Module Areas */
 		'app.inicial',
 	]);
-})()
+})();

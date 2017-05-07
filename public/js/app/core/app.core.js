@@ -11,6 +11,6 @@
 		'ngResource',
 		'ngRoute',
 		'ui.bootstrap',
-		
+		'ngStorage',
 	]);
 })()

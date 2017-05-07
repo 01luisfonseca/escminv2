@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-offset-2 col-xs-8">
+            <form name="formLogin" ng-submit="formLogin.$valid && vm.loginUser()" novalidate>
+                <legend><h2 style="text-shadow: -2px 0px 15px rgba(32, 34, 34, 1);color: aqua;">Iniciar sesión.</h2></legend>
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" class="form-control" placeholder="Ingrese su correo"  ng-model="vm.login.username" required autofocus/>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" ng-model="vm.login.password" required/>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
+</div>

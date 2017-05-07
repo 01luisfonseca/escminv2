@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['middleware'=>['auth'],'throttle:150'],function (){
+Route::group(['middleware' => ['auth:api'],'throttle:150'],function (){
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
