@@ -32,6 +32,8 @@
         <script type="text/javascript" src="js/app/core/app.inicial.js"></script>
         
         <!-- JS App.Services -->
+        <script type="text/javascript" src="js/app/services/user.fact.js"></script>
+        <script type="text/javascript" src="js/app/services/perfil.fact.js"></script>
         <script type="text/javascript" src="js/app/services/estudiantes.fact.js"></script>
         <script type="text/javascript" src="js/app/services/asignaciones.fact.js"></script>
         <script type="text/javascript" src="js/app/services/discursos.fact.js"></script>
@@ -52,6 +54,8 @@
         <script type="text/javascript" src="js/app/programacion/formprog.dir.js"></script>
         <script type="text/javascript" src="js/app/menu/dir.js"></script>
         <script type="text/javascript" src="js/app/login/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/miinfo/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/users/ctrl.js"></script>
 
     </head>
     <body ng-app='app'>

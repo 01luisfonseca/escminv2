@@ -1,0 +1,39 @@
+<menu></menu>
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8">
+		<h1 class="title">Discursos</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+		<p>A continuación se mostrará su información de usuario. Sin embargo, puede cambiar la contraseña, pero debe saber la contraseña anterior.</p>
+		<p>Si no posee la contraseña, por favor comuníquese con el administrador para que le cree una contraseña temporal.</p>
+	</div>
+</div>
+<div class="row" style="padding-top: 20px;">
+	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+	<div class="panel">
+		<div class="panel-body" style="height: 400px !important; overflow-y: auto;">
+			<form name="formLogin" ng-submit="formLogin.$valid && vm.actPw()" novalidate>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Nombre</label>
+					<label class="form-control">{{vm.data.name}}</label>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Correo</label>
+					<label class="form-control">{{vm.data.email}}</label>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Contraseña nueva</label>
+					<input type="password" class="form-control" ng-model="vm.set.password">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Repetir contraseña</label>
+					<input type="password" class="form-control" ng-model="vm.set.newpassword">
+				</div>
+				<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Cambiar contraseña</button>
+			</form>
+		</div>
+	</div>
+	</div>
+</div>

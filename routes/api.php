@@ -17,6 +17,11 @@ Route::group(['middleware' => ['auth:api'],'throttle:150'],function (){
         return $request->user();
     });
 
+    Route::get('perfil','PerfilCtrl@show');
+	Route::put('perfil','PerfilCtrl@update');
+
+    Route::resource('users', 'UserCtrl');
+
     Route::resource('estudiantes', 'EstudiantesCtrl');
     Route::get('estudiantes/asignables/{genero}/{tipo}', 'EstudiantesCtrl@asignables');
 

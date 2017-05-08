@@ -48,6 +48,16 @@
                 controller: 'loginCtrl',
                 controllerAs:'vm'
             })
+            .when('/users', {
+                templateUrl: 'js/app/users/index.html',
+                controller: 'UsersController',
+                controllerAs:'vm'
+            })
+            .when('/miinfo', {
+                templateUrl: 'js/app/miinfo/index.html',
+                controller: 'MiiController',
+                controllerAs:'vm'
+            })
             .otherwise({
                 redirectTo: '/login'
             });
