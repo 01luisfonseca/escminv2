@@ -2,9 +2,9 @@
 	'use strict';
 	angular
 		.module('app.inicial')
-		.controller('loginCtrl',['$location', '$localStorage', 'AuthFactory', '$window',controller]);
+		.controller('loginCtrl',['$location', '$localStorage', 'AuthFactory', '$window','$timeout','toastr',controller]);
 
-		function controller($location, $localStorage, AuthFactory, $window){
+		function controller($location, $localStorage, AuthFactory, $window, $timeout, toastr){
 			var vm=this;
 			vm.login={
 				username:'',
@@ -27,12 +27,16 @@
 
 			function respuesta(result){
                 if (result === true) {
-                    $location.path('/inicial');
-                    console.log('Sesión iniciada.');
+					toastr.success('Sesión iniciada. Entrando al sistema.');
+					$timeout(function(){
+						$location.path('/inicial');
+                    	console.log('Sesión iniciada.');
+					},1000);
                 } else {
                     vm.error = 'Usuario o contraseña incorrectos';
                     vm.loading = false;
-                    $window.alert(vm.error);
+					toastr.error(vm.error);
+                    //$window.alert(vm.error);
                 }
 			}
 

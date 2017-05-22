@@ -9,6 +9,8 @@
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/app.css">
         <link rel="stylesheet" type="text/css" href="assets/css/template.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/angular-busy.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/angular-toastr.css">
         <link rel="stylesheet" type="text/css" href="assets/js/uibootstrap/dist/ui-bootstrap-csp.css">
         <link rel="stylesheet" type="text/css" href="css/animations.css">
         <title>Escuela Ministerio</title>
@@ -18,6 +20,8 @@
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/angular.min.js"></script>
         <script type="text/javascript" src="assets/js/angular-animate.min.js"></script>
+        <script type="text/javascript" src="assets/js/angular-busy.js"></script>
+        <script type="text/javascript" src="assets/js/angular-toastr.tpls.js"></script>
         <script type="text/javascript" src="assets/js/angular-resource.min.js"></script>
         <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
         <script type="text/javascript" src="assets/js/ngStorage.min.js"></script>

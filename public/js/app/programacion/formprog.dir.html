@@ -17,7 +17,7 @@
     <div class="panel panel-default" ng-repeat="disc in vm.disc">
         <div class="container-fluid">
             <div class="row">
-                <h4 style="text-align: center; width: auto;"><em>SEMANA DEL {{disc.week}}</em></h4>
+                <h4 style="text-align: center; width: auto;"><em>SEMANA DEL {{vm.textoFecha(disc.week)}}</em></h4>
             </div>
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-5">
@@ -49,7 +49,7 @@
             </div>
             <div class="row" ng-repeat="asig in disc.discursos">
                 <div class="col-xs-2">
-                    <p>Discurso {{asig.alloc}}</p>
+                    <p>Asignación {{asig.alloc}}</p>
                 </div>
                 <div class="col-xs-5">
                     <div class="col-xs-7">

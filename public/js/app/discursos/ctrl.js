@@ -1,9 +1,9 @@
 (function(){
 	'use strict';
 	angular.module('app.inicial')
-    .controller('DiscursosController', ['DiscursosFct', controller]);
+    .controller('DiscursosController', ['DiscursosFct','$q', controller]);
     
-    function controller(DiscursosFct){
+    function controller(DiscursosFct,$q){
         var vm=this;
         
         //Variables
@@ -20,7 +20,9 @@
             getDatas();
         }
         function getDatas(){
+            vm.cargando=$q.defer();
             return DiscursosFct.query({},(data)=>{
+                vm.cargando.resolve();
                 vm.datas=data;
             })
         }

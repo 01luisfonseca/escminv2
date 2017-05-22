@@ -12,5 +12,7 @@
 		'ngRoute',
 		'ui.bootstrap',
 		'ngStorage',
+		'cgBusy',
+		'toastr',
 	]);
 })()

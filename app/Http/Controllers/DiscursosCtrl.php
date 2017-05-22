@@ -15,9 +15,10 @@ class DiscursosCtrl extends Controller
      */
     public function index()
     {
-        $monday=Carbon::today()->startOfWeek()->subWeeks(8); // Cuantas semanasde anterioridad se van a ver en la asignación
-        $future=Carbon::today()->addWeek(8)->startOfWeek(); // Cuantas semanasposteriores se van a ver
-        $obj=Discursos::whereBetween('week',[$monday, $future])->with(['asignaciones'=>function($query){
+        //$monday=Carbon::today()->startOfWeek()->subWeeks(8); // Cuantas semanasde anterioridad se van a ver en la asignación
+        //$future=Carbon::today()->addWeek(8)->startOfWeek(); // Cuantas semanasposteriores se van a ver
+        //$obj=Discursos::whereBetween('week',[$monday, $future])->with(['asignaciones'=>function($query){
+        $obj=Discursos::with(['asignaciones'=>function($query){
             $query->with('estudiantes')->where('type','est');
         }])->get();
         return $obj->toJson();

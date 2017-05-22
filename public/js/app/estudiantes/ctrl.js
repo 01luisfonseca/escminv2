@@ -1,9 +1,9 @@
 (function(){
 	'use strict';
 	angular.module('app.inicial')
-    .controller('EstudiantesController', ['EstudiantesFct', '$log', '$window', '$scope', '$uibModal', controller]);
+    .controller('EstudiantesController', ['EstudiantesFct', '$log', '$window', '$scope', '$uibModal','toastr','$q', controller]);
     
-    function controller(EstudiantesFct, $log, $window, $scope, $uibModal){
+    function controller(EstudiantesFct, $log, $window, $scope, $uibModal,toastr,$q){
         var vm=this;
         
         //Variables
@@ -29,8 +29,13 @@
             return vm.sel.tab===tb;
         }
         function getDatas(){
+            vm.cargando=$q.defer();
             return EstudiantesFct.query({},(data)=>{
+                vm.cargando.resolve();
                 vm.datas=data;
+            },()=>{
+                vm.cargando.reject();
+                toastr.error('No se han podido obtener los datos.');
             })
         }
         function delData(id){
@@ -39,7 +44,8 @@
             }
             return EstudiantesFct.delete({id:id},(info)=>{
                 getDatas();
-                $window.alert('Se ha borrado el usuario.');
+                toastr.warning('Se ha borrado el usuario.')
+                //$window.alert('Se ha borrado el usuario.');
             });
         }
         function openModal(id){

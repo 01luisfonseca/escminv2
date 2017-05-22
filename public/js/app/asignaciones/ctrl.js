@@ -1,9 +1,9 @@
 (function(){
 	'use strict';
 	angular.module('app.inicial')
-    .controller('AsignacionesController', ['EstudiantesFct','AsignacionesFct','DiscursosFct', '$uibModal', '$log', '$window', controller]);
+    .controller('AsignacionesController', ['EstudiantesFct','AsignacionesFct','DiscursosFct', '$uibModal', '$log', '$window','toastr', controller]);
     
-    function controller(EstudiantesFct, AsignacionesFct, DiscursosFct, $uibModal, $log, $window){
+    function controller(EstudiantesFct, AsignacionesFct, DiscursosFct, $uibModal, $log, $window,toastr){
         var vm=this;
         
         //Variables
@@ -163,6 +163,8 @@
                 vm.semanas=getSem(data);
                 vm.sel.sem=vm.semanas[0].week;
                 actSem();
+            },()=>{
+                toastr.error('No se han podido obtener los datos.');
             })
         }
         function tabSel(tab){

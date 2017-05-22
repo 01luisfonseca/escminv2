@@ -50,7 +50,7 @@
 				<div class="cajadiscurso" ng-class='{cajaselec: false}' ng-repeat='disc in sala.disc'>
 					<div class="panel transparent">
 						<div class="panel-body">
-  							<h3 class="center specialt">Discurso {{ $index + 1 }}</h3>
+  							<h3 class="center specialt">Asignación {{ $index + 1 }}</h3>
   							<form class="form-horizontal" name="p{{pIndex}}d{{$index+1}}sa">
   								<div class="form-group">
     								<label class="col-sm-3 control-label">Estudiante:</label>
@@ -93,6 +93,7 @@
             <h4 class="modal-title" id="modal-title">Seleccione el estudiante</h4>
         </div>
         <div class="modal-body" id="modal-body">
+			<div cg-busy="vm.cargandoModal"></div>
 			<div class='table-responsive'>
 				<table class='table table-hover table-striped'>
 					<tr>

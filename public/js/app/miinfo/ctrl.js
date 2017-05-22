@@ -1,9 +1,9 @@
 (function(){
 	'use strict';
 	angular.module('app.inicial')
-    .controller('MiiController', ['PerfilFct', '$window', controller]);
+    .controller('MiiController', ['PerfilFct', '$window','toastr', controller]);
     
-    function controller(PerfilFct, $window){
+    function controller(PerfilFct, $window,toastr){
         var vm=this;
         
         //Variables
@@ -30,9 +30,12 @@
             })
         }
         function actPw(){
-            if(vm.set.password!==vm.set.newpassword) return $window.alert('Las contraseñas deben coincidir');
+            if(vm.set.password!==vm.set.newpassword) return toastr.error('Las contraseñas deben coincidir');
             return PerfilFct.update({},vm.set,(data)=>{
-                $window.alert(data.msj);
+                toastr.success(data.msj)
+                //$window.alert(data.msj);
+            },()=>{
+                toastr.error('No se ha actualizado la contraseña por un error.');
             });
         }
     }

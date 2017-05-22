@@ -23,7 +23,7 @@
       		/* */
     	}
 
-    	function controller(EstudiantesFct, $window, $log){
+    	function controller(EstudiantesFct, $window, $log, toastr){
     		var vm=this;
     		//console.log(vm.existente);
 
@@ -69,11 +69,19 @@
 				if (typeof(vm.existente)=='undefined') {
 					let data= new EstudiantesFct();
 					data=Object.assign(data,vm.data);
-					data.$save();
+					data.$save(()=>{
+						toastr.success('Se ha creado el alumno.');
+					},()=>{
+						toastr.error('No se ha creado el alumno.');
+					});
 					inicializador();
-					$window.alert('Se ha creado el alumno.');
+					//$window.alert('Se ha creado el alumno.');
 				}else{
-					EstudiantesFct.update({id:vm.existente}, vm.data);
+					EstudiantesFct.update({id:vm.existente}, vm.data,()=>{
+						toastr.success('Se ha actualizado el registro.');												
+					},()=>{
+						toastr.error('No se ha actualizado el registro.');						
+					});
 				}
 			}			
 

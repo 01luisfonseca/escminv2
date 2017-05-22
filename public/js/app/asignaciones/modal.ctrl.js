@@ -13,7 +13,7 @@
 	angular.module('app.inicial')
     .controller('modalAsigEstCtrl', controller);
     
-    function controller(EstudiantesFct, $uibModalInstance, items, $window){
+    function controller(EstudiantesFct, $uibModalInstance, items, $window, $q){
         var vm=this;
         
         //Variables
@@ -48,7 +48,9 @@
         function getAlumnos(genero, tipo){
             vm.alumnos=[];
             if (!genero) genero='ambos';
-            return EstudiantesFct.asignable({genero:genero, tipo:tipo},(data)=>{
+            vm.cargandoModal=$q.defer();
+            EstudiantesFct.asignable({genero:genero, tipo:tipo},(data)=>{
+                vm.cargandoModal.resolve();
                 vm.alumnos=data;
                 vm.alumnos.sort((a,b)=>{
                     if(a.name>b.name) return 1;

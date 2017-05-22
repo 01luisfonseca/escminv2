@@ -21,7 +21,7 @@
 		function link(scope, element, attrs) {
     	}
 
-    	function controller(DiscursosFct, AsignacionesFct, $window, $log, $scope){
+    	function controller(DiscursosFct, AsignacionesFct, $window, $log, $scope,toastr){
     		var vm=this;
 
 			// Variables
@@ -37,6 +37,7 @@
 			vm.estProx=estProx;
 			vm.imprimir=imprimir;
 			vm.guardar=guardar;
+			vm.textoFecha= textoFecha;
 			
 			// Lanzamiento Automático
 			$scope.$on('actmes',function(ev,args){
@@ -63,7 +64,7 @@
 				vm.disc=[];
 				return DiscursosFct.mes({mes:obj.month, anio:obj.anio},(data)=>{
 					vm.disc=ajustarData(data);
-					console.log(vm.disc);
+					//console.log(vm.disc);
 				});
 				/////
 				function ajustarData(dt){
@@ -103,16 +104,62 @@
 			}
 
 			/////////////////////////// FUNCIONES EXTERNAS //////////////////////////////		
-			
+			function textoFecha(fecha){
+				let myFecha=new Date(fecha);
+				let lafecha='';
+				lafecha += myFecha.getUTCDate()+' DE ';
+				switch (myFecha.getMonth()) {
+					case 0:
+						lafecha +='ENERO';
+						break;
+					case 1:
+						lafecha +='FEBRERO';
+						break;
+					case 2:
+						lafecha +='MARZO';
+						break;
+					case 3:
+						lafecha +='ABRIL';
+						break;
+					case 4:
+						lafecha +='MAYO';
+						break;
+					case 5:
+						lafecha +='JUNIO';
+						break;
+					case 6:
+						lafecha +='JULIO';
+						break;
+					case 7:
+						lafecha +='AGOSTO';
+						break;
+					case 8:
+						lafecha +='SEPTIEMBRE';
+						break;
+					case 9:
+						lafecha +='OCTUBRE';
+						break;
+					case 10:
+						lafecha +='NOVIEMBRE';
+						break;
+					case 11:
+						lafecha +='DICIEMBRE';
+						break;
+				}
+				return lafecha;
+			}
 			function guardar(){
 				return AsignacionesFct.proxpoint({id : vm.puntoprox[0].id, pto : vm.puntoprox[0].futurepoint},(data)=>{
 					vm.puntoprox.shift();
 					if(vm.puntoprox.length > 0){
 						return guardar();
 					}else{
+						toastr.success('Se han almacenado todos los datos');
 						activate();
 						return true;
 					}
+				},()=>{
+					toastr.error('No se han podido guardar los datos.');
 				});
 			}
 			/**
