@@ -3,7 +3,7 @@
 	angular.module('app.inicial')
     .controller('modalEstudiantesCtrl', controller);
     
-    function controller(EstudiantesFct, $uibModalInstance, items, $window){
+    function controller(EstudiantesFct, $uibModalInstance, items, $window,toastr){
         var vm=this;
         
         //Variables
@@ -22,7 +22,12 @@
         function activate(){
         }
         function actualizar(){
-           EstudiantesFct.update({id:vm.data.id}, vm.data).$promise.then((data)=>{ok();});
+           EstudiantesFct.update({id:vm.data.id}, vm.data).$promise.then((data)=>{
+                toastr.success('Se han actualizado los datos.');
+               ok();
+            },()=>{
+                toastr.error('No se han actualizado los datos.');                
+            });
         }
          function ok() {
             $uibModalInstance.close('Cerrado con OK');
