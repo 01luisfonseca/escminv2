@@ -49,6 +49,7 @@
         }
         function actSem(){
             var discSem=[];
+            //initObj();
             for (var i = 0; i < vm.discursos.length; i++) {
                 if(vm.discursos[i].week===vm.sel.sem){
                     discSem.push({id:vm.discursos[i].id, alloc:parseInt(vm.discursos[i].alloc)});
@@ -76,7 +77,6 @@
         function guardarInfo(){
             var msj=[];
             var err=false;
-            console.log(vm.sel.sala);
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
                     if (vm.sel.sala[i].disc[j].ayuda) {
@@ -94,29 +94,33 @@
             }
             if (err) {
                 $window.alert(msj); // Retorna los incompletos
-                return 'error';
+                if(!$window.confirm('Desea almacenar los registros de todas formas?')) return 'error';
             }
             var elementosToSalvar=[];
             for (var i = 0; i < vm.sel.sala.length; i++) {
                 for (var j = 0; j < vm.sel.sala[i].disc.length; j++) {
-                    elementosToSalvar.push({
-                        type: 'est', 
-                        point: vm.sel.sala[i].disc[j].pto,
-                        room: vm.sel.sala[i].id,
-                        estudiantes_id: vm.sel.sala[i].disc[j].idest,
-                        discursos_id: vm.sel.sala[i].disc[j].iddisc,
-                    });
-                    if (vm.sel.sala[i].disc[j].ayuda) {
+                    if(vm.sel.sala[i].disc[j].idest!==0){
                         elementosToSalvar.push({
-                            type: 'acomp', 
+                            type: 'est', 
                             point: vm.sel.sala[i].disc[j].pto,
                             room: vm.sel.sala[i].id,
-                            estudiantes_id: vm.sel.sala[i].disc[j].idacomp,
+                            estudiantes_id: vm.sel.sala[i].disc[j].idest,
                             discursos_id: vm.sel.sala[i].disc[j].iddisc,
                         });
+                        if (vm.sel.sala[i].disc[j].ayuda) {
+                            elementosToSalvar.push({
+                                type: 'acomp', 
+                                point: vm.sel.sala[i].disc[j].pto,
+                                room: vm.sel.sala[i].id,
+                                estudiantes_id: vm.sel.sala[i].disc[j].idacomp,
+                                discursos_id: vm.sel.sala[i].disc[j].iddisc,
+                            });
+                        }
                     }
                 }                
             }
+            if (elementosToSalvar.length==0) return $window.alert('No se puede guardar nada si no ha seleccionado al menos un alumno.');
+            //console.log(elementosToSalvar);
             almacenarAsignaciones(elementosToSalvar).then(
                 (dt)=>{
                     activate();                    

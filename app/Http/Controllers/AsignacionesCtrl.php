@@ -47,7 +47,7 @@ class AsignacionesCtrl extends Controller
         $elem->created_at=Carbon::now();
         $elem->updated_at=Carbon::now();
         $elem->save();
-        return response()->json(['msj'=>'Asignación creada con ID '+$elem->id]);
+        return response()->json(['msj'=>'Asignación creada con ID '.$elem->id]);
     }
 
     /**
@@ -62,7 +62,7 @@ class AsignacionesCtrl extends Controller
         $elem->futurepoint=$pto;
         $elem->updated_at=Carbon::now();
         $elem->save();
-        return response()->json(['msj'=>'Punto futuro ajustado: Punto '+$elem->futurepoint+', ID '+$elem->id]);
+        return response()->json(['msj'=>'Punto futuro ajustado: Punto '+$elem->futurepoint+', ID '.$elem->id]);
     }
 
     /**
@@ -101,7 +101,7 @@ class AsignacionesCtrl extends Controller
         $elem->updated_at=Carbon::now();
         $elem->estudiantes_id=$request->input('estudiantes_id');
         $elem->save();
-        return response()->json(['msj'=>'Asignación actualizada con ID '+$elem->id]);
+        return response()->json(['msj'=>'Asignación actualizada con ID '.$elem->id]);
     }
 
     /**
@@ -114,6 +114,6 @@ class AsignacionesCtrl extends Controller
     {
         $obj=Asignaciones::findOrFail($id);
         $obj->delete();
-        return response()->json(['msj'=>'Asignación eliminada con ID '+$elem->id]); 
+        return response()->json(['msj'=>'Asignación eliminada con ID '.$elem->id]); 
     }
 }
