@@ -19,6 +19,7 @@
         //Declaracion de funciones
         function calcularTxt(dt,sala,type){
             if (typeof(type)!=='undefined') {
+                //console.log(dt);                
                 for (var i = 0; i < dt.asignaciones.length; i++) {
                     let asig = dt.asignaciones[i];
                     if (asig.room==sala) {

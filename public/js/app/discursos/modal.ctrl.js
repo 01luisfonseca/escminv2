@@ -13,7 +13,7 @@
 	angular.module('app.inicial')
     .controller('modalAsigDiscCtrl', controller);
     
-    function controller(EstudiantesFct, $uibModalInstance, items, $window, $q, $uibModal,$log,toastr){
+    function controller(AsignacionesFct, $uibModalInstance, items, $window, $q, $uibModal,$log,toastr){
         var vm=this;
         
         //Variables
@@ -52,25 +52,23 @@
         function guardarInfo(){
             var elementosToSalvar=[];
             elementosToSalvar.push({
-                idAsig:idAsigEst,
+                idAsig:vm.sala.idAsigEst,
                 type: 'est', 
                 point: vm.sala.pto,
-                room: vm.sala.id,
+                room: vm.sala.room,
                 estudiantes_id: vm.sala.idest,
                 discursos_id: vm.sala.iddisc,
             });
             if (vm.sala.ayuda) {
                 elementosToSalvar.push({
-                    idAsig: idAsigAcomp,
+                    idAsig: vm.sala.idAsigAcomp,
                     type: 'acomp', 
-                    point: vm.sel.sala[i].disc[j].pto,
-                    room: vm.sel.sala[i].id,
-                    estudiantes_id: vm.sel.sala[i].disc[j].idacomp,
-                    discursos_id: vm.sel.sala[i].disc[j].iddisc,
+                    point: vm.sala.pto,
+                    room: vm.sala.room,
+                    estudiantes_id: vm.sala.idacomp,
+                    discursos_id: vm.sala.iddisc,
                 });
             }
-            console.log(elementosToSalvar);
-            return true;
             (function almacenarAsignaciones(arr){
                 if(!arr.length) return false;
                 if(!arr[0].idAsig || arr[0].idAsig == 0){
