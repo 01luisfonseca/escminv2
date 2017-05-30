@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Asignaciones;
 use Carbon\Carbon;
 use App\Helpers\AutoDiscursos;
+use Log;
 
 class AsignacionesCtrl extends Controller
 {
@@ -31,6 +32,7 @@ class AsignacionesCtrl extends Controller
      */
     public function store(Request $request)
     {
+        Log::Info('Entramos a store');        
         $this->validate($request, [
             'type'=>'required',
             'point'=>'required',
@@ -56,13 +58,14 @@ class AsignacionesCtrl extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function futurepoint($id, $pto)
+    public function futurepoint(Request $request)
     {
-        $elem=Asignaciones::findOrFail($id);
-        $elem->futurepoint=$pto;
+        Log::Info('Entramos a future');
+        $elem=Asignaciones::findOrFail($request->input('id'));
+        $elem->futurepoint=$request->input('pto');
         $elem->updated_at=Carbon::now();
         $elem->save();
-        return response()->json(['msj'=>'Punto futuro ajustado: Punto '+$elem->futurepoint+', ID '.$elem->id]);
+        return response()->json(['msj'=>'Punto futuro ajustado: Punto '.$elem->futurepoint.', ID '.$elem->id]);
     }
 
     /**

@@ -14,23 +14,33 @@
 	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
 	<div class="panel">
 		<div class="panel-body" style="height: 400px !important; overflow-y: auto;">
-			<table class="table table-stripped">
+			<table class="table table-bordered table-stripped table-condensed">
 				<thead>
-					<tr>
-						<th>No. Discurso</th>
-						<th>Semana</th>
-						<th>Discursante</th>
-						<th>Punto del Discurso</th>
-						<th>Punto a Trabajar</th>
+					<tr class='info'>
+						<th rowspan="2" style="vertical-align: middle;">No. Discurso</th>
+						<th rowspan="2" style="vertical-align: middle;">Semana</th>
+						<th colspan="3" style="vertical-align: middle;">Sala A</th>
+						<th colspan="3" style="vertical-align: middle;">Sala B</th>
+					</tr>
+					<tr class='info'>
+						<th style="vertical-align: middle;">Discursante</th>
+						<th style="vertical-align: middle;">Acompañante</th>
+						<th style="vertical-align: middle;">Punto del Discurso</th>
+						<th style="vertical-align: middle;">Discursante</th>
+						<th style="vertical-align: middle;">Acompañante</th>
+						<th style="vertical-align: middle;">Punto del Discurso</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat='dt in vm.datas'>
-						<td>{{dt.alloc}}</td>
-						<td>{{dt.week}}</td>
-						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].estudiantes.name : 'Libre' }}</td>
-						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].point : '' }}</td>
-						<td>{{ dt.asignaciones.length>0? dt.asignaciones[0].futurepoint : '' }}</td>
+						<td style="vertical-align: middle;">{{dt.alloc}}</td>
+						<td style="vertical-align: middle;">{{dt.week}}</td>
+						<td style="vertical-align: middle;"><button ng-click='vm.openModal("A",dt.alloc,dt.week,dt.asignaciones,dt.id)' class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  {{ vm.calcularTxt(dt,"A","est") }}</td>
+						<td style="vertical-align: middle;">{{ vm.calcularTxt(dt,"A","acomp") }}</td>
+						<td style="vertical-align: middle;">{{ vm.calcularTxt(dt,"A") }}</td>
+						<td style="vertical-align: middle;"><button ng-click='vm.openModal("B",dt.alloc,dt.week,dt.asignaciones)' class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>  {{ vm.calcularTxt(dt,"B","est") }}</td>
+						<td style="vertical-align: middle;">{{ vm.calcularTxt(dt,"B","acomp") }}</td>
+						<td style="vertical-align: middle;">{{ vm.calcularTxt(dt,"B") }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -38,3 +48,79 @@
 	</div>
 	</div>
 </div>
+
+<!-- MODAL DE DISCURSO -->
+<script type="text/ng-template" id="modalasignaciondisc.html">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-title">Seleccione el estudiante</h4>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<div cg-busy="vm.cargandoModal"></div>
+		<div class=''>
+			<form class="form-horizontal" name="manualDisc">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Estudiante:</label>
+					<div class="col-sm-9">
+						<button ng-click='vm.openModal("est")' type="button" class="btn btn-default btn-lg form-control">{{ vm.sala.est }}   
+								<span ng-show='vm.sala.est==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"> </span><span ng-show='vm.sala.est!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				<div class="col-xs-offset-3 checkbox" ng-if='vm.sala.id > 1'>
+					<label><input type="checkbox" ng-click='vm.limpiaDisc(vm.sala)' ng-model='vm.sala.ayuda'>Tiene acompañante?</label>
+				</div>
+				<div class="form-group" ng-if='vm.sala.ayuda'>
+					<label class="col-sm-3 control-label">Acompañante:</label>
+					<div class="col-sm-9">
+						<button ng-click='vm.openModal("acomp")' type="button" class="btn btn-default btn-lg form-control">{{ vm.sala.acomp }}   
+								<span ng-show='vm.sala.acomp==""' class="glyphicon glyphicon-plus" style="color: green;" aria-hidden="true"> </span><span ng-show='vm.sala.acomp!=""' class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Punto:</label>
+					<div class="col-sm-9">
+						<input type="number" step=1 class="form-control" ng-model='vm.sala.pto' required>
+						<p><h5>El ultimo punto trabajado fue {{vm.sala.ptoa}}.</h5></p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+		<button class="btn btn-info" type="button" ng-click="vm.guardarInfo()">Guardar</button>
+		<button class="btn btn-error" type="button" ng-click="vm.deleteInfo()">Borrar</button>
+	</div>
+</script>
+
+<!-- MODAL DE ESTUDIANTES -->
+<script type="text/ng-template" id="modalasignacionest.html">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-title">Seleccione el estudiante</h4>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<div cg-busy="vm.cargandoModal"></div>
+		<div class='table-responsive'>
+			<table class='table table-hover table-striped'>
+				<tr>
+					<th>NOMBRE</th>
+					<th>GÉNERO</th>
+					<th>ULTIMO DISCURSO</th>
+					<th>No</th>
+					<th>TIPO</th>
+				</tr>
+				<tr ng-repeat='alumno in vm.alumnos | orderBy:"asignaciones[0].discursos.week"' ng-click='vm.selAlumno(alumno.id)'>
+					<td>{{ alumno.name }}</td>
+					<td>{{ alumno.sex }}</td>
+					<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'NUNCA HA TENIDO' }}</td>
+					<td>{{ alumno.asignaciones[0].discursos.alloc? alumno.asignaciones[0].discursos.alloc : 'NUNCA HA TENIDO' }}</td>						
+					<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].type : 'NUNCA HA TENIDO' }}</td>							
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+	</div>
+</script>

@@ -27,8 +27,6 @@
             getSemanas();
         }
         function limpiaDisc(disc){
-            disc.id=1;
-            disc.iddisc=0;
             disc.idest=0;
             disc.idacomp=0;
             disc.est='';
@@ -177,7 +175,7 @@
         function openModal(idP, idC, type){
             if(vm.sel.sala[idP].disc[idC][type]!=='') {
                 if (type==='est') {
-                    vm.sel.sala[idP].disc[idC].gen='ambos';
+                    vm.sel.sala[idP].disc[idC].gen=vm.sel.sala[idP].disc[idC].ayuda? 'ambos' : 'hombre';
                     vm.sel.sala[idP].disc[idC].acomp='';
                 }
                 vm.sel.sala[idP].disc[idC][type]='';

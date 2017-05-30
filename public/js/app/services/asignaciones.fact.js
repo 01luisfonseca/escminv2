@@ -11,9 +11,12 @@
         return $resource('api/asignaciones/:id', {},{
             'proxpoint': { 
         		method:'POST',
-        		url: 'api/asignaciones/:id/:pto',
+        		url: 'api/asignaciones/punto',
         		isArray: false
-        	}
+        	},
+            'update': {
+                method: 'PUT'
+            }
         });
     }
 })()

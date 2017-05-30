@@ -50,6 +50,8 @@
         <script type="text/javascript" src="js/app/estudiantes/ctrl.js"></script>
         <script type="text/javascript" src="js/app/estudiantes/modal.ctrl.js"></script>
         <script type="text/javascript" src="js/app/discursos/ctrl.js"></script>
+        <script type="text/javascript" src="js/app/discursos/modal.ctrl.js"></script>
+        <script type="text/javascript" src="js/app/discursos/estumodal.ctrl.js"></script>
         <script type="text/javascript" src="js/app/estudiante/ctrl.js"></script>
         <script type="text/javascript" src="js/app/estudiante/dir.js"></script>
         <script type="text/javascript" src="js/app/asignaciones/ctrl.js"></script>

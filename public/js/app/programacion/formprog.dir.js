@@ -64,7 +64,7 @@
 				vm.disc=[];
 				return DiscursosFct.mes({mes:obj.month, anio:obj.anio},(data)=>{
 					vm.disc=ajustarData(data);
-					//console.log(vm.disc);
+					console.log(vm.disc);
 				});
 				/////
 				function ajustarData(dt){

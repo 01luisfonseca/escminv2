@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth:api'],'throttle:150'],function (){
     Route::get('estudiantes/asignables/{genero}/{tipo}', 'EstudiantesCtrl@asignables');
 
     Route::resource('asignaciones', 'AsignacionesCtrl');
-    Route::post('asignaciones/{id}/{pto}', 'AsignacionesCtrl@futurepoint');
+    Route::post('asignaciones/punto', 'AsignacionesCtrl@futurepoint');
     
     Route::resource('discursos', 'DiscursosCtrl');
     Route::get('discursos/mes/{anio}/{mes}', 'DiscursosCtrl@mensual');
