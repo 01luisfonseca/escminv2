@@ -90,7 +90,7 @@
 <!-- MODAL DE ESTUDIANTES -->
 	<script type="text/ng-template" id="modalasignacionest.html">
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-title">Seleccione el estudiante</h4>
+            <h4 class="modal-title" id="modal-title">Seleccione el {{vm.data.type=='est'? 'Estudiante':'Acompañante'}}</h4>
         </div>
         <div class="modal-body" id="modal-body">
 			<div cg-busy="vm.cargandoModal"></div>
@@ -101,14 +101,14 @@
 						<th>GÉNERO</th>
 						<th>ULTIMO DISCURSO</th>
 						<th>No</th>
-						<th>TIPO</th>
+						<th>SALA</th>
 					</tr>
 					<tr ng-repeat='alumno in vm.alumnos | orderBy:"asignaciones[0].discursos.week"' ng-click='vm.selAlumno(alumno.id)'>
 						<td>{{ alumno.name }}</td>
 						<td>{{ alumno.sex }}</td>
 						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].discursos.week : 'NUNCA HA TENIDO' }}</td>
 						<td>{{ alumno.asignaciones[0].discursos.alloc? alumno.asignaciones[0].discursos.alloc : 'NUNCA HA TENIDO' }}</td>						
-						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].type : 'NUNCA HA TENIDO' }}</td>							
+						<td>{{ alumno.asignaciones[0].discursos.week? alumno.asignaciones[0].room : 'NUNCA HA TENIDO' }}</td>							
 					</tr>
 				</table>
 			</div>
