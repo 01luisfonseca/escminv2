@@ -38,6 +38,10 @@
         function selAlumno(idx){
             for (var i = 0; i < vm.alumnos.length; i++) {
                 if (vm.alumnos[i].id===idx) {
+                    for (var j = 0; j < vm.alumnos[i].asignaciones.length; j++) {
+                        var asig = vm.alumnos[i].asignaciones[j];
+                        asig.futurepoint=asig.futurepoint? parseInt(asig.futurepoint): 0;
+                    }
                      ok(vm.alumnos[i]);
                      break;
                 }
