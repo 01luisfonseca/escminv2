@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-xs-5">
                         <div class="col-xs-6" style="border: 1px solid; height: 25px;">{{vm.buscarPto('pto','B',asig.asignaciones)}}</div>
-                        <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','B',asig.asignaciones)!=null">{{vm.buscarPto('prox','A',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','B',asig.asignaciones)!=null">{{vm.buscarPto('prox','B',asig.asignaciones)}}</div>
                         <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','B',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'B',asig.asignaciones)"></div>
                     </div>
                 </div>
