@@ -103,32 +103,43 @@ class EstudiantesCtrl extends Controller
     {
         $var=new AutoDiscursos;
         $var->complete();
+        $obj=null;
         if ($genero=='ambos') {
             $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
-                $query->with('discursos')
-                    ->select('asignaciones.*','discursos.week')
-                    ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
-                    ->where('type',$tipo)
-                    ->orderBy('week', 'desc');
+                if ($tipo=='est') {
+                    // El estudiante debe mostrar si fue ayudante en el mes. 
+                    // Si fue ayudante en menos de treinta dias, se pone la fecha de ayudante
+                    $query->with('discursos')
+                        ->select('asignaciones.*','discursos.week')
+                        ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                        ->orderBy('week', 'desc');
+                } else {
+                    $query->with('discursos')
+                        ->select('asignaciones.*','discursos.week')
+                        ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                        ->where('type',$tipo)
+                        ->orderBy('week', 'desc');
+                }
             }])->where('estado','>',0)->get();
-            return $obj->toJson();
+        }else{
+            $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
+                if ($tipo=='est') {
+                    // El estudiante debe mostrar si fue ayudante en el mes. 
+                    // Si fue ayudante en menos de treinta dias, se pone la fecha de ayudante
+                    $query->with('discursos')
+                        ->select('asignaciones.*','discursos.week')
+                        ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                        ->orderBy('week', 'desc');
+                } else {
+                    $query->with('discursos')
+                        ->select('asignaciones.*','discursos.week')
+                        ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
+                        ->where('type',$tipo)
+                        ->orderBy('week', 'desc');
+                }
+            }])->where('sex', $genero)->where('estado','>',0)->get();
         }
-        $obj=Estudiantes::with(['asignaciones'=>function($query) use($tipo){
-            if ($tipo=='est') {
-                // El estudiante debe mostrar si fue ayudante en el mes. 
-                // Si fue ayudante en menos de treinta dias, se pone la fecha de ayudante
-                $query->with('discursos')
-                    ->select('asignaciones.*','discursos.week')
-                    ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
-                    ->orderBy('week', 'desc');
-            } else {
-                $query->with('discursos')
-                    ->select('asignaciones.*','discursos.week')
-                    ->join('discursos', 'discursos.id', '=', 'asignaciones.discursos_id')
-                    ->where('type',$tipo)
-                    ->orderBy('week', 'desc');
-            }
-        }])->where('sex', $genero)->where('estado','>',0)->get();
+        // Verificacion de la semana que hizo acompañante
         $now=Carbon::now();
         if ($tipo=='est') {
             foreach ($obj as $est) {
@@ -148,7 +159,10 @@ class EstudiantesCtrl extends Controller
                 if ($est->asignaciones->count()>0) {
                     $est->asignaciones->filter(function($el,$key){return $el->type=='est';});
                     // Se modifica el discurso mas reciente, el cual toma el software de discursos
-                    if($insWeek) $est->asignaciones[0]->discursos->week=$insWeek;
+                    if($insWeek) {
+                        $est->asignaciones[0]->discursos->week=$insWeek;
+                        $est->asignaciones[0]->week=$insWeek;
+                    }
                 }
             }
         }
