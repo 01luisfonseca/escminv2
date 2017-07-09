@@ -141,7 +141,7 @@ class EstudiantesCtrl extends Controller
                         if ($week->diffInDays($now) <= 28) {
                             // Si se hizo una asignacion de acompañante se cambia la fecha
                             // Se hace un límite de 28 dias desde la asignacion hasta hoy
-                            $insWeek=$now->startOfWeek()->toDateString();
+                            $insWeek=$asig->week;//$now->startOfWeek()->toDateString();
                         }
                     }
                 }
