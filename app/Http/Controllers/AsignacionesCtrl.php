@@ -32,7 +32,6 @@ class AsignacionesCtrl extends Controller
      */
     public function store(Request $request)
     {
-        Log::Info('Entramos a store');        
         $this->validate($request, [
             'type'=>'required',
             'point'=>'required',
