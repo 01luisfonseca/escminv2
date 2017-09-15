@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Estudiantes;
 use Carbon\Carbon;
-use App\Helpers\AutoDiscursos;
+use App\Http\Helpers\AutoDiscursos;
 
 class EstudiantesCtrl extends Controller
 {

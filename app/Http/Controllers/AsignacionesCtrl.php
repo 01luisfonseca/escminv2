@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Asignaciones;
 use Carbon\Carbon;
-use App\Helpers\AutoDiscursos;
+use App\Http\Helpers\AutoDiscursos;
 use Log;
 
 class AsignacionesCtrl extends Controller
