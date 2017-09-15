@@ -43,7 +43,7 @@ class EstudiantesCtrl extends Controller
         $elem->created_at=Carbon::now();
         $elem->updated_at=Carbon::now();
         $elem->save();
-        return response()->json(['msj'=>'Estudiante creado con ID '+$elem->id]);
+        return response()->json(['msj'=>'Estudiante creado con ID '.$elem->id]);
     }
 
     /**
@@ -78,7 +78,7 @@ class EstudiantesCtrl extends Controller
         $elem->updated_at=Carbon::now();
         $elem->estado=$request->input('estado');
         $elem->save();
-        return response()->json(['msj'=>'Estudiante actualizado con ID '+$elem->id]);
+        return response()->json(['msj'=>'Estudiante actualizado con ID '.$elem->id]);
     }
 
     /**
@@ -91,7 +91,7 @@ class EstudiantesCtrl extends Controller
     {
         $obj=Estudiantes::findOrFail($id);
         $obj->delete();
-        return response()->json(['msj'=>'Estudiante eliminado con ID '+$obj->id]); 
+        return response()->json(['msj'=>'Estudiante eliminado con ID '.$obj->id]); 
     }
 
     /**

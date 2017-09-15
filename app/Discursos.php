@@ -22,6 +22,6 @@ class Discursos extends Model
     public $timestamps = false;
 
     public function asignaciones(){
-        return $this->hasMany('App\Asignaciones');
+        return $this->hasMany('App\Asignaciones','discursos_id');
     }
 }

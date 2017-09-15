@@ -22,11 +22,11 @@ class Asignaciones extends Model
     public $timestamps = false;
 
      public function discursos(){
-        return $this->belongsTo('App\Discursos');
+        return $this->belongsTo('App\Discursos','discursos_id');
     }
 
     public function estudiantes(){
-        return $this->belongsTo('App\Estudiantes');
+        return $this->belongsTo('App\Estudiantes','estudiantes_id');
     }
 
 }
