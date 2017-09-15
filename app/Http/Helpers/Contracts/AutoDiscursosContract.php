@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Contracts;
+namespace App\Http\Helpers\Contracts;
 Interface AutoDiscursosContract
 {
     public function complete();

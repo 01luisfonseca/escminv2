@@ -1,6 +1,6 @@
 <?php
-namespace App\Helpers;
-use App\Helpers\Contracts\AutoDiscursosContract;
+namespace App\Http\Helpers;
+use App\Http\Helpers\Contracts\AutoDiscursosContract;
 use Illuminate\Http\Request;
 use App\Discursos;
 use Carbon\Carbon;
