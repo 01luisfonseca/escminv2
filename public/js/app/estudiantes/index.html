@@ -1,88 +1,88 @@
 <menu></menu>
 <div class="row">
-	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8">
-		<h1 class="title">Estudiantes</h1>
-	</div>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8">
+        <h1 class="title">Estudiantes</h1>
+    </div>
 </div>
 <div class="row">
-	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
-		<p>En esta sección podrá crear, modificar y eliminar a los estudiantes de la escuela.</p>
-		<p style="text-align: center;"><button class="btn btn-info" ng-click='vm.selTab(1)'>Crear</button> <button class="btn btn-default" ng-click='vm.selTab(2)'>Ver creados</button></p>
-	</div>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+        <p>En esta sección podrá crear, modificar y eliminar a los estudiantes de la escuela.</p>
+        <p style="text-align: center;"><button class="btn btn-info" ng-click='vm.selTab(1)'>Crear</button> <button class="btn btn-default" ng-click='vm.selTab(2)'>Ver creados</button> <button class="btn btn-warning" ng-click='vm.limpieza()'>Limpiar datos</button></p>
+    </div>
 </div>
 <div class="row" style="padding-top: 20px;" ng-show='vm.tabSel(1)'>
-	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
-	<div class="panel">
-		<div class="panel-body">
-			<h2>Ingreso de Estudiantes</h2>
-			<p>Por favor ingrese todos los campos asociados al estudiante.</p>
-			<lf-formestudiante></lf-formestudiante>
-		</div>
-	</div>
-	</div>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+        <div class="panel">
+            <div class="panel-body">
+                <h2>Ingreso de Estudiantes</h2>
+                <p>Por favor ingrese todos los campos asociados al estudiante.</p>
+                <lf-formestudiante></lf-formestudiante>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row" style="padding-top: 20px;" ng-show='vm.tabSel(2)'>
-	<div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
-	<div cg-busy="vm.cargando"></div>
-	<div class="panel">
-		<div class="panel-body" style="max-height: 400px !important; overflow-y: auto;">
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Género</th>
-							<th>Estado</th>
-							<th>Acción</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat='dt in vm.datas'>
-							<td>{{dt.name}}</td>
-							<td>{{dt.sex | uppercase}}</td>
-							<td>{{dt.estado==1? 'Activo': 'Inactivo'}}</td>
-							<td>
-								<a class="btn btn-info btn-xs" ng-click="vm.openModal($index)">Ver mas</a>
-								<a class="btn btn-danger btn-xs" ng-click='vm.delData(dt.id)'>Borrar</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	<!-- MODAL DE ESTUDIANTES -->
-	<script type="text/ng-template" id="modalestudiante.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Estudiante: <em>{{vm.data.name}}</em></h3>
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 white-background">
+        <div cg-busy="vm.cargando"></div>
+        <div class="panel">
+            <div class="panel-body" style="max-height: 400px !important; overflow-y: auto;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Género</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat='dt in vm.datas'>
+                                <td>{{dt.name}}</td>
+                                <td>{{dt.sex | uppercase}}</td>
+                                <td>{{dt.estado==1? 'Activo': 'Inactivo'}}</td>
+                                <td>
+                                    <a class="btn btn-info btn-xs" ng-click="vm.openModal($index)">Ver mas</a>
+                                    <a class="btn btn-danger btn-xs" ng-click='vm.delData(dt.id)'>Borrar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" id="modal-body">
+        <!-- MODAL DE ESTUDIANTES -->
+        <script type="text/ng-template" id="modalestudiante.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Estudiante: <em>{{vm.data.name}}</em></h3>
+            </div>
+            <div class="modal-body" id="modal-body">
 
-<form novalidate name="formEstu">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Nombres y Apellidos</label>
-    <input ng-model='vm.data.name' type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombres completos" required>
-  </div>
-  <div class="form-group">
-    <label class="radio-inline">
+                <form novalidate name="formEstu">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombres y Apellidos</label>
+                        <input ng-model='vm.data.name' type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombres completos" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="radio-inline">
       <input ng-model='vm.data.sex' type="radio" name="gerRadio" value="hombre"> Hombre
     </label>
-    <label class="radio-inline">
+                        <label class="radio-inline">
       <input ng-model='vm.data.sex' type="radio" name="gerRadio" value="mujer"> Mujer
     </label>
-  </div>
-  <div class="checkbox">
-    <label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
       <input ng-model='vm.data.estado' type="checkbox"> Habilitado
     </label>
-  </div>
-</form>
+                    </div>
+                </form>
 
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click='vm.actualizar()' ng-disabled='formEstu.$invalid' >Actualizar</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
-        </div>
-    </script>
-	</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click='vm.actualizar()' ng-disabled='formEstu.$invalid'>Actualizar</button>
+                <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
 </div>

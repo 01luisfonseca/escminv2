@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Asignaciones;
+use App\Estudiantes;
 use Carbon\Carbon;
 use App\Http\Helpers\AutoDiscursos;
 use Log;
@@ -22,6 +23,27 @@ class AsignacionesCtrl extends Controller
         $obj=Asignaciones::all();
         return $obj->toJson();
     }
+
+    /**
+     * Limpiar asignaciones. Busca usuarios y los elimina si no están
+     *
+     * @return \Illuminate\Http\Response
+     */
+     public function limpieza()
+     {
+        Log::info('Inicio');        
+        $obj=Asignaciones::all();
+        $counter=0;
+        foreach ($obj as $asig) {
+            $est=Estudiantes::find($asig->estudiantes_id);
+            if(!$est){
+                $toerase=Asignaciones::find($asig->id);
+                $toerase->delete();
+                $counter++;
+            }
+        }
+        return response()->json(['msj'=>'Borrados '.$counter]);
+     }
 
 
     /**
