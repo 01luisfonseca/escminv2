@@ -73,15 +73,20 @@
                 for (var i = 0; i < vm.data.all.sala.length; i++) {
                     for (var j = 0; j < vm.data.all.sala[i].disc.length; j++) {
                         try{
-                        for (var k = 0; k < vm.alumnos.length; k++) {
-                            if(vm.data.all.sala[i].disc[j].idest==vm.alumnos[k].id || vm.data.all.sala[i].disc[j].idacomp==vm.alumnos[k].id){
-                                vm.alumnos.splice(k,1);
-                            }                            
-                        }
+                            for (var k = 0; k < vm.alumnos.length; k++) {
+                                //console.log(vm.data.all.sala[i].disc[j].idest,vm.data.all.sala[i].disc[j].idacomp,vm.alumnos[k].id)
+                                if(vm.data.all.sala[i].disc[j].idest==vm.alumnos[k].id || vm.data.all.sala[i].disc[j].idacomp==vm.alumnos[k].id){
+                                    acum.push(vm.alumnos[k].id);
+                                    //console.log('Encontrado ',acum,vm.alumnos[k].id);
+                                }                            
+                            }
                         }catch(e){}
                     }
-                    vm.data.all.sala[i]
                 }
+                for (var i = 0; i < acum.length; i++) {
+                    vm.alumnos=vm.alumnos.filter(x=>{return x.id!==acum[i]});                    
+                }
+                //console.log(vm.alumnos)
             });
         }
          function ok(sel) {

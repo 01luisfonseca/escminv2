@@ -20,7 +20,7 @@
                 <h4 style="text-align: center; width: auto;"><em>SEMANA DEL {{vm.textoFecha(disc.week)}}</em></h4>
             </div>
             <div class="row">
-                <div class="col-xs-offset-2 col-xs-5">
+                <div class="col-xs-offset-3 col-xs-3">
                     <div class="col-xs-7">
                         <h5>SALA PRINCIPAL</h5>
                     </div>
@@ -33,9 +33,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-3">
                     <div class="col-xs-7">
-                        <h5>SALA AUXILIAR</h5>
+                        <h5>SALA AUXILIAR 1</h5>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6">
+                            <p>Pto</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>Prox</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="col-xs-7">
+                        <h5>SALA AUXILIAR 1</h5>
                     </div>
                     <div class="col-xs-5">
                         <div class="col-xs-6">
@@ -48,10 +61,10 @@
                 </div>
             </div>
             <div class="row" ng-repeat="asig in disc.discursos">
-                <div class="col-xs-2">
+                <div class="col-xs-3">
                     <p>Asignación {{asig.alloc}}</p>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-3">
                     <div class="col-xs-7">
                         <p ng-repeat="estud in vm.discursantes('A',asig.asignaciones)">{{estud.estudiantes.name}}</p>
                     </div>
@@ -61,7 +74,7 @@
                         <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','A',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'A',asig.asignaciones)"></div>
                     </div>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-3">
                     <div class="col-xs-7">
                         <p ng-repeat="estud in vm.discursantes('B',asig.asignaciones)">{{estud.estudiantes.name}}</p>
                     </div>
@@ -69,6 +82,16 @@
                         <div class="col-xs-6" style="border: 1px solid; height: 25px;">{{vm.buscarPto('pto','B',asig.asignaciones)}}</div>
                         <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','B',asig.asignaciones)!=null">{{vm.buscarPto('prox','B',asig.asignaciones)}}</div>
                         <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','B',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'B',asig.asignaciones)"></div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="col-xs-7">
+                        <p ng-repeat="estud in vm.discursantes('C',asig.asignaciones)">{{estud.estudiantes.name}}</p>
+                    </div>
+                    <div class="col-xs-5">
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px;">{{vm.buscarPto('pto','C',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style="border: 1px solid; height: 25px" ng-if="vm.buscarPto('prox','C',asig.asignaciones)!=null">{{vm.buscarPto('prox','C',asig.asignaciones)}}</div>
+                        <div class="col-xs-6" style='padding: 0px;' ng-if="vm.buscarPto('prox','C',asig.asignaciones)==null"><input style='width: 110%; padding: 0px; margin: 0px;' type="number" step="1" min="1" ng-blur="vm.estProx($event,'C',asig.asignaciones)"></div>
                     </div>
                 </div>
             </div>

@@ -132,7 +132,7 @@
         function almacenarAsignaciones(arr){
             if(!arr.length) return false;
             let promise= new Promise((res, rej)=>{
-                console.log(arr);
+                //console.log(arr);
                 var asig=new AsignacionesFct();
                 asig.type= arr[0].type; 
                 asig.point= arr[0].point;
@@ -272,6 +272,59 @@
                     },
                     {
                         id:'B',
+                        disc: [
+                            {
+                                id:1,
+                                iddisc:0,
+                                idest:0,
+                                idacomp:0,
+                                est:'',
+                                acomp:'',
+                                pto:0,
+                                ptoa:0,
+                                gen:'hombre',
+                                ayuda:false
+                            },
+                            {
+                                id:2,
+                                iddisc:0,
+                                idest:0,
+                                idacomp:0,
+                                est:'',
+                                acomp:'',
+                                pto:0,
+                                ptoa:0,
+                                gen:'ambos',
+                                ayuda:true
+                            },
+                            {
+                                id:3,
+                                iddisc:0,
+                                idest:0,
+                                idacomp:0,
+                                est:'',
+                                acomp:'',
+                                pto:0,
+                                ptoa:0,
+                                gen:'ambos',
+                                ayuda:true
+                            },
+                            {
+                                id:4,
+                                iddisc:0,
+                                idest:0,
+                                idacomp:0,
+                                est:'',
+                                acomp:'',
+                                pto:0,
+                                ptoa:0,
+                                gen:'ambos',
+                                ayuda:true
+                            },
+                        ],
+                    },
+                    {
+                        id:'C',
                         disc: [
                             {
                                 id:1,
