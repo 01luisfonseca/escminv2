@@ -4,21 +4,25 @@ use App\Http\Helpers\Contracts\AutoDiscursosContract;
 use Illuminate\Http\Request;
 use App\Discursos;
 use Carbon\Carbon;
+use Log;
 
 class AutoDiscursos implements AutoDiscursosContract
 {
     public function complete()
     {
-        $monday=Carbon::today()->addWeek(8)->startOfWeek();
-        $elem=Discursos::where('week', $monday)->first();
-        if (!$elem) {
-            return $this->crearDiscursos();
+        $year=Carbon::today()->year;
+        for ($i=0; $i < 2; $i++) {  // Número de años en base de datos
+            $this->crearDiscursos($year+$i);
         }
-        return false;
+        return true;
     }
 
-    public function crearDiscursos(){
-        $year=Carbon::today()->year;
+    public function crearDiscursos($year){
+        $elements = Discursos::where('week','like','%'.$year.'%')->first();
+        if($elements) return false; // Ya existe este año
+
+        // Si pasa acá es porque el año no existe
+        Log::info('SE CREA AÑO '.$year);
         $firstMon=Carbon::create($year,1,7)->startOfWeek();
         $mondays=array();
         $yearRev=$year;

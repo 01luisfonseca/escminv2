@@ -36,8 +36,8 @@ class TablasIniciales extends Migration
             $table->timestamps();
             
             //////////////////////////////////////////////////////////
-            $table->foreign('estudiantes_id')->references('id')->on('estudiantes')->onDelete('cascade');
-            $table->foreign('discursos_id')->references('id')->on('discursos')->onDelete('cascade');
+            // $table->foreign('estudiantes_id')->references('id')->on('estudiantes')->onDelete('cascade');
+            // $table->foreign('discursos_id')->references('id')->on('discursos')->onDelete('cascade');
         });
     }
 

@@ -3,5 +3,5 @@ namespace App\Http\Helpers\Contracts;
 Interface AutoDiscursosContract
 {
     public function complete();
-    public function crearDiscursos();
+    public function crearDiscursos($year);
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Asignaciones;
 use App\Estudiantes;
+use App\Discursos;
 use Carbon\Carbon;
 use App\Http\Helpers\AutoDiscursos;
 use Log;
@@ -31,7 +32,7 @@ class AsignacionesCtrl extends Controller
      */
      public function limpieza()
      {
-        Log::info('Inicio');        
+        Log::info('Inicio de limpieza');        
         $obj=Asignaciones::all();
         $counter=0;
         foreach ($obj as $asig) {
@@ -41,7 +42,14 @@ class AsignacionesCtrl extends Controller
                 $toerase->delete();
                 $counter++;
             }
+            $disc = Discursos::find($asig->discursos_id);
+            if(!$disc){
+                $toerase=Asignaciones::find($asig->id);
+                $toerase->delete();
+                $counter++;
+            }
         }
+        Log::info('Registros de asignaciones limpiados: '.$counter); 
         return response()->json(['msj'=>'Borrados '.$counter]);
      }
 
