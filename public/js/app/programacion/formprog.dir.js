@@ -77,6 +77,20 @@
 							}
 						);
 					}
+					// Organizando primero los estudiantes y luego los acompañantes
+					for (var i = 0; i < temp.length; i++) {
+						const week = temp[i];
+						for (let j = 0; j < week.discursos.length; j++) {
+							const discurso = week.discursos[j];
+							for (let k = 0; k < discurso.asignaciones.length; k += 2) {
+								if(discurso.asignaciones[k].type !== 'est'){
+									let asigtemp = JSON.parse(JSON.stringify(discurso.asignaciones[k]));
+									discurso.asignaciones[k] = JSON.parse(JSON.stringify(discurso.asignaciones[k+1]));
+									discurso.asignaciones[k+1] = asigtemp;
+								}
+							}
+						}
+					}
 					return temp;
 				}
 			}
