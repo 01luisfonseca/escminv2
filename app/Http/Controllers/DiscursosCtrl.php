@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Discursos;
 use Carbon\Carbon;
+use Log;
 
 class DiscursosCtrl extends Controller
 {
@@ -99,7 +100,7 @@ class DiscursosCtrl extends Controller
     public function mensual($anio, $mes)
     {
         $first=Carbon::create($anio, $mes, 1, 0, 0, 0)->startOfWeek();
-        if($first->month!==$mes){
+        if($first->month != $mes){
             $first->addWeek(1); // Si no es el primer lunes del mes, añade una semana
         }
         $second=Carbon::create($anio, $mes, 1, 0, 0, 0)->endOfMonth(); // Fin del mes
